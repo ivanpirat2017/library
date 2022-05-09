@@ -1,31 +1,45 @@
 import { createStore } from 'vuex'
+import {
+    GET_PROFILE,
+} from "../api-routes";
 
- 
+
 const store = createStore({
     state() {
         return {
-            count: 0
+            myId: null,
+            profile: {}
         }
+    },
+    getters: {
+        getprofile: (state) => state.profile
     },
     mutations: {
-        increment(state, n) {
-            state.count += n
+        setMyId(state, id) {
+            state.myId = id
         },
-        deduction(state) {
-            state.count--
-        }
+        setProfiled(state, profile) {
+            state.profile = profile
+        },
     },
     actions: {
-        increment({ commit }) {
-            commit('increment', 1)
-        },
-        deduction({ commit }) {
-            commit('deduction')
-        },
-        incrementasync({ commit }, n) {
-            setTimeout(() => {
-                commit('increment', n)
-            }, 100*n);
+        GET_API_PROFILE({ commit }) {
+            fetch(GET_PROFILE, {
+                method: "GET",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            })
+                .then((r) => {
+                    if (r.status == 200) {
+                        return r.json();
+                    } else {
+                        alert("ошибка на сервере");
+                    }
+                })
+                .then((r) => {
+                    commit('setProfiled', r.data)
+                })
 
         }
     }

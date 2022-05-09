@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import Home from './routes/Home.vue'
 import Ganre from './routes/Ganre.vue'
 import Profile from './routes/Profile.vue'
+import ProfileCard from './routes/ProfileCard.vue'
 import Books from './routes/Books.vue'
 import Login from './routes/Login.vue'
 import Search from './routes/Search.vue'
@@ -67,8 +68,19 @@ const routes = [
             },
             {
                 path: "profile",
-                name: "Profile",
                 component: Profile,
+                children: [
+                    {
+                        path: "",
+                        name: "Profile",
+                        component: ProfileCard,
+                    },
+                    {
+                        path: "mycard",
+                        name: "MyCard",
+                        component: User,
+                    },
+                ]
             },
             {
                 path: "action/:id",

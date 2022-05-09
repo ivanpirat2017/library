@@ -1,6 +1,6 @@
 <template  >
     <Placeholder v-if="loadingBool" />
-    <div v-if="notAuth" class="cardUser">
+    <div v-if="notAuth" class="cardUser m5-l-r">
         <div class="cardUserinfo">
             <div class="cardUserinfologo">
                 <img :src="img" alt="" />
@@ -31,7 +31,7 @@
                     </h5>
                     <h5>
 
-                        {{ user.sum_watchbooks.uniqueWatch }} книг  ункальные
+                        {{ user.sum_watchbooks.uniqueWatch }} книг ункальные
                         <img height="20" src="../../../static/img/book.png" />
                     </h5>
                 </div>
@@ -69,14 +69,21 @@ export default {
     },
     data() {
         return {
-            user: {},
+            user: null,
             notAuth: false,
-            loadingBool: true,
             img: null,
             err: false,
             aboutImg: null,
             Awards: [],
         };
+    },
+    computed: {
+        loadingBool() {
+            if (this.$store.getters.getprofile.id) {
+                return false;
+            }
+            return this.user ? false : true
+        }
     },
     mounted() {
         this.getUser();
@@ -84,7 +91,7 @@ export default {
     },
     methods: {
         getUser() {
-            fetch(GET_USER + this.$route.params.id, {
+            fetch(GET_USER + (this.$route.params.id ?? this.$store.getters.getprofile.id), {
                 method: "GET",
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token"),
@@ -106,12 +113,13 @@ export default {
                         ? "/storage/" + this.user.about_img
                         : backgroundUser;
                     this.notAuth = true;
+
                 })
-                .catch((r) => r)
-                .finally((r) => (this.loadingBool = false));
+                .catch((r) => this.getUser())
+
         },
         getAward() {
-            fetch(GET_AWARD + this.$route.params.id, {
+            fetch(GET_AWARD + (this.$route.params.id ?? this.$store.getters.getprofile.id), {
                 method: "GET",
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token"),
@@ -127,10 +135,9 @@ export default {
                     }
                 })
                 .then((r) => {
-                    console.log(r);
                     this.Awards = r.data;
                 })
-                .catch((r) => r);
+                .catch((r) => this.getAward());
         },
     },
 };
@@ -146,15 +153,11 @@ $height-back: 250px;
 }
 
 .cardUser {
-    width: 100vw;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 100px;
 
-    @media (max-width: 700px) {
-        padding-top: 0;
-    }
 
     &info {
         max-width: 1200px;
