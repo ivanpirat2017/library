@@ -1,0 +1,241 @@
+.search {
+    background    : url(../static/img/folige.jpg);
+    padding-bottom: 70px;
+
+    &_content {
+        color: white;
+
+        p {
+            margin-top: 5px;
+            font-size : 1.2rem;
+        }
+
+        h3 {
+            color    : white;
+            font-size: 3rem;
+        }
+    }
+}
+
+.search .search_content .search_content h4 {
+    color: white;
+}
+
+.inputsearch {
+    margin-top : 15px;
+    display    : flex;
+    align-items: center;
+
+    button {
+        border       : none;
+        background   : none;
+        font-size    : 1.1rem;
+        cursor       : pointer;
+        height       : 44px;
+        border-radius: 0 5px 5px 0;
+        background   : rgb(230, 82, 14);
+        padding      : 4px 25px;
+        color        : white;
+    }
+
+    input {
+        border       : none;
+        background   : none;
+        width        : 600px;
+        height       : 40px;
+        border-radius: 5px 0 0 5px;
+        border       : white 2px solid;
+        outline      : none;
+        color        : white;
+        padding      : 0 5px;
+
+        &::placeholder {
+            font-family: 'ml';
+            color      : rgba(255, 255, 255, 0.5);
+            font-size    : 1rem;
+        }
+    }
+}
+
+.books {
+    margin-top     : 15px;
+    display        : flex;
+    flex-wrap      : wrap;
+    justify-content: start;
+    gap            : 15px;
+
+    h4 {
+        font-size: 1.2rem;
+
+    }
+}
+
+.books_book_button_star {
+    border       : none;
+    background   : none;
+    font-size    : 1rem;
+    cursor       : pointer;
+    border-radius: 5px;
+    font-size    : 2rem;
+    padding      : 5px;
+    color        : rgb(255, 153, 0);
+
+    &:hover {
+        border       : none;
+        background   : none;
+        font-size    : 1rem;
+        cursor       : pointer;
+        border-radius: 5px;
+        font-size    : 2rem;
+        padding      : 5px;
+        color        : rgb(255, 153, 0);
+    }
+}
+
+.btn_send {
+    display : flex;
+    height  : 40px;
+    width   : 120px;
+    position: relative;
+
+    img {
+        transition   : 0.2s;
+        position     : absolute;
+        top          : 0;
+        left         : 5px;
+        display      : flex;
+        height       : 100%;
+        padding-right: 80px;
+
+        &:focus {
+            @keyframes loader {
+                0% {
+                    left: 0px
+                }
+
+                95% {
+                    left: 50px
+                }
+
+                100% {
+                    left: 0px
+                }
+            }
+
+            animation: loader 0.3s ease-in-out;
+        }
+    }
+}
+
+.book_button_grean {
+    color     : white;
+    background: #1E5945;
+
+    &:hover {
+        color     : white;
+        background: #1E5945;
+        box-shadow: inset #1E5945 0 0 0px 2px;
+    }
+
+    &:focus {
+        color     : white;
+        background: #1E5945;
+    }
+}
+
+.caterogies {
+    border-bottom: rgb(7, 37, 14) solid 2px;
+    display      : flex;
+    font-size    : 1rem;
+    flex-wrap    : wrap;
+
+    a {
+        text-decoration: none;
+        padding        : 15px 20px 5px 0;
+        color          : rgb(7, 37, 14);
+        cursor         : pointer;
+    }
+}
+
+.book_button_update {
+    border       : none;
+    background   : none;
+    font-size    : 1rem;
+    cursor       : pointer;
+    border-radius: 1.5px;
+
+    padding   : 5px 25px;
+    color     : white;
+    background: #ffa825;
+}
+
+.books_book_button_org {
+    border       : none;
+    background   : none;
+    font-size    : 1rem;
+    cursor       : pointer;
+    border-radius: 5px;
+    background   : rgb(230, 82, 14);
+    margin       : 5px 0;
+    padding      : 5px;
+    color        : white;
+}
+
+#book_buy {
+    background: rgb(0, 0, 0);
+}
+
+.itembtn {
+    display       : flex;
+    flex-direction: column;
+    align-items   : flex-start;
+
+    button {
+        width: 100%;
+    }
+
+    h5 {
+        margin-top: 10px;
+    }
+}
+
+.menu_next_active {
+    right    : -30%;
+    z-index  : 10;
+    transform: translateY(-50%) rotateY(0);
+    filter   : drop-shadow(0 0 8px rgba(0, 0, 0, 0.8));
+}
+
+.link-grean {
+    color: #0c2d0c;
+}
+
+
+.clicmenu {
+
+    @media (max-width: 700px) {
+        transition: 1s;
+        left      : -70%;
+    }
+
+}
+
+.black {
+    color: black;
+
+    &:focus {
+        color: black;
+    }
+
+}
+
+.placeholder {
+    width     : 100vw;
+    height    : 100vh;
+    position  : fixed;
+    top       : 0;
+    left      : 0;
+    background: white;
+    z-index   : 4;
+    opacity   : 1;
+}

@@ -1,0 +1,222 @@
+@font-face {
+    font-family: 'mb';
+    src        : url(../static/font/Montserrat-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'mel';
+    src        : url(../static/font/Montserrat-ExtraLight.ttf);
+}
+
+@font-face {
+    font-family: 'ml';
+    src        : url(../static/font/Montserrat-Light.ttf);
+}
+
+@font-face {
+    font-family: 'mm';
+    src        : url(../static/font/Montserrat-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'mr';
+    src        : url(../static/font/Montserrat-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'mt';
+    src        : url(../static/font/Montserrat-Thin.ttf);
+}
+
+
+
+
+html {
+    position  : relative;
+    height    : 100vh;
+    max-height: 100vh;
+    max-width : 100vw;
+    width     : 100vw;
+    overflow: hidden;
+}
+
+* {
+    padding: 0;
+    margin : 0;
+}
+
+header {
+    width              : 100vw;
+    background         : url(../static/img/forest.jpg);
+    background-position: center;
+    background-size    : cover;
+    display            : flex;
+    position           : fixed;
+    top                : 0;
+    z-index            : 10;
+
+    img {
+        display: none;
+    }
+
+}
+
+body {
+    height          : 100vh;
+    max-height      : 100vh;
+    max-width       : 100vw;
+    width           : 100vw;
+    overflow-x      : hidden;
+    background-color: #f7f8ff;
+
+    &::-webkit-scrollbar {
+        width : 15px;
+        cursor: pointer;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.1);
+        cursor          : pointer;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        margin    : 5px;
+        background: #1E5945;
+        cursor    : pointer;
+    }
+
+    @media (max-width: 700px) {
+        &::-webkit-scrollbar {
+            width : 0;
+            cursor: pointer;
+        }
+      
+    }
+}
+
+h6 {
+    font-family: 'ml';
+}
+
+h5 {
+    font-family: 'mr';
+}
+
+h4 {
+    font-family: 'mr';
+}
+
+h3 {
+    font-family: 'mm';
+}
+
+h2 {
+    font-family: 'mm';
+}
+
+h1 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+p {
+    font-family: 'ml';
+}
+
+a {
+    font-family: 'mr';
+}
+
+.logo {
+    font-family: 'mb';
+    font-size  : 2rem;
+}
+
+button {
+    font-family: 'mm';
+}
+
+input {
+    font-family: 'ml';
+}
+
+.m5-l-r {
+    margin-left : 5%;
+    margin-right: 5%;
+}
+
+.m5-p-b {
+    margin-top   : 20px;
+    margin-bottom: 10px;
+}
+
+.m7-p-b {
+    margin-top   : 10px;
+    margin-bottom: 5px;
+}
+
+.m-r-10px {
+    margin-right: 10px;
+}
+
+.m-r-b {
+    margin-right : 10px;
+    margin-bottom: 5px;
+}
+
+.btn {
+    &:focus {
+        outline   : none;
+        border    : none;
+        box-shadow: none;
+    }
+}
+
+.form-control {
+    &:focus {
+        outline     : none;
+        background  : none;
+        box-shadow  : none;
+        color       : white;
+        border-color: white;
+    }
+
+    &:checked {
+        outline   : none;
+        background: none;
+        box-shadow: none;
+        color     : white;
+    }
+
+}
+
+.t-pt-35 {
+    padding-top: 35px;
+
+    font-size: 1.5rem;
+}
+
+.t-pt-70 {
+    padding-top: 70px;
+
+    font-size: 1.5rem;
+}
+
+.t-mt-35 {
+    margin-top: 35px;
+
+    font-size: 1.5rem;
+}
+
+.t-pb-35 {
+    padding-bottom: 35px;
+
+    font-size: 1.5rem;
+}
+
+main {
+    padding-top: 100px;
+
+    @media (max-width:700px) {
+        padding-top: 0;
+    }
+}
