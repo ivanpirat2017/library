@@ -20,7 +20,8 @@ import AddBooks from './routes/admin/AddBooks.vue'
 import AddAction from './routes/admin/AddAction.vue'
 import EditAdmin from './routes/admin/EditAdmin.vue'
 import { authCheck, authAdminCheck } from "../api-routes";
-
+import Collections from './routes/Collections.vue'
+import Secure from './routes/Secure.vue'
 const routes = [
     {
         path: '/:pathMatch(.*)*',
@@ -70,21 +71,49 @@ const routes = [
             {
                 path: "profile",
                 component: Profile,
+                meta: {
+                    name: 'profile'
+                },
                 children: [
                     {
                         path: "",
                         name: "Profile",
                         component: ProfileCard,
+                        meta: {
+                            name: 'profile'
+                        },
                     },
                     {
                         path: "mycard",
                         name: "MyCard",
                         component: User,
+                        meta: {
+                            name: 'profile'
+                        },
                     },
                     {
                         path: "top",
                         name: "ProgressTop",
                         component: ProgressTop,
+                        meta: {
+                            name: 'profile'
+                        },
+                    },
+                    {
+                        path: "collections",
+                        name: "Collections",
+                        component: Collections,
+                        meta: {
+                            name: 'profile'
+                        },
+                    },
+                    {
+                        path: "secure",
+                        name: "Secure",
+                        component: Secure,
+                        meta: {
+                            name: 'profile'
+                        },
                     },
                 ]
             },
@@ -158,7 +187,7 @@ router.beforeEach(async (to, from) => {
             }
         })
     }
-    if (to.fullPath == '/profile') {
+    if (to.meta.name == 'profile') {
         return await authCheck().then(r => {
             if (r.status == 200) {
             } else {

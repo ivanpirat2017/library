@@ -7,13 +7,19 @@
             </button>
         </div>
         <div class="profile-menu m5-l-r ">
-            <router-link class="btn  " :to="'/profile'">
+            <router-link class="btn  " :to="'/profile'" :class="{ active_menu: $route.name == 'Profile' }">
                 <img src="../../../static/img/profile.png" height="40" />
             </router-link>
-            <router-link class="btn  " :to="'/profile/mycard'">
+            <router-link class="btn  " :to="'/profile/secure'" :class="{ active_menu: $route.name == 'Secure' }">
+                <img src="../../../static/img/shield.png" height="50" />
+            </router-link>
+            <router-link class="btn  " :to="'/profile/mycard'" :class="{ active_menu: $route.name == 'MyCard' }">
                 <img src="../../../static/img/id-card.png" height="60" />
             </router-link>
-             <router-link class="btn  " :to="'/profile/top'">
+            <router-link class="btn  " :to="'/profile/collections'" :class="{ active_menu: $route.name == 'Collections' }">
+                <img src="../../../static/img/bookshelf.png" height="50" />
+            </router-link>
+            <router-link class="btn  " :to="'/profile/top'" :class="{ active_menu: $route.name == 'ProgressTop' }">
                 <img src="../../../static/img/podium.png" height="50" />
             </router-link>
         </div>
@@ -54,15 +60,14 @@ export default {
     border-radius: 10px;
     background: white;
     box-shadow: rgb(2 0 51 / 10%) 0 0 30px;
-    z-index: 5;
+    z-index: 2;
     display: flex;
     align-items: center;
-
+    overflow-x: scroll;
     a {
         transition: 0.3s;
         margin: 5px;
         border-radius: 15px;
-
         &:hover {
             transform: scale(0.8);
         }

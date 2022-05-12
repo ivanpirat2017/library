@@ -1,6 +1,5 @@
 <template  >
-    <InfoItem :closeInfo="closeInfo" v-if="infopanel" :title="'Коллекция'"
-        :textbody="'Вы впервые создали коллекцию, она отображается внизу вашей страницы, при нажатие на неё она раскроется и там будут ваши книги.'" />
+
     <Placeholder v-if="loadingBool" />
     <div class="m5-l-r">
         <div class="main-body">
@@ -90,16 +89,7 @@
                                 </div>
                             </div>
                             <hr />
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Новый пароль</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="password" class="form-control" name="password" id="password"
-                                        v-model="password" />
-                                </div>
-                            </div>
-                            <hr />
+                            
                             <div class="alert alert-info" role="alert" v-if="update">
                                 Данные в профиле успешно обновлены
                             </div>
@@ -117,41 +107,11 @@
             </div>
         </div>
     </div>
-    <h2 class="m5-l-r p-t-50 name_ganr" v-if="collections.length != 0">
-        Ваша коллекция книг
-    </h2>
-    <h2 class="m5-l-r p-t-50 name_ganr" v-else>Ваша коллекция книг пуста</h2>
-    <div v-if="collections.length != 0" class="accordion m5-l-r mb-3 boder-shodow-radius"
-        id="accordionPanelsStayOpenExample">
-        <div class="accordion-item bg-white" v-for="(collection, i) in collections"
-            :key="collection.namecollection + i + collection.id">
-            <h2 class="accordion-header" :id="'panelsStayOpen-headingThree' + i">
-                <button class="accordion-button collapsed bg-white" type="button" data-bs-toggle="collapse"
-                    :data-bs-target="'#panelsStayOpen-collapseThree' + i" aria-expanded="false"
-                    :aria-controls="'panelsStayOpen-collapseThree' + i">
-                    <div class="d-flex justify-content-between container-fluid">
-                        <h5>{{ collection.namecollection }}</h5>
-                        <button type="button" class="btn btn-danger" @click.prevent="dellCollection(collection.id, i)">
-                            X
-                        </button>
-                    </div>
-                </button>
-            </h2>
-            <div :id="'panelsStayOpen-collapseThree' + i" class="accordion-collapse collapse"
-                :aria-labelledby="'panelsStayOpen-headingThree' + i">
-                <div class="accordion-body books d-flex-wrap">
-                    <Book :item="item" :collection="true" v-for="(item, id) in collection.books" :key="id" />
-                </div>
-            </div>
-        </div>
-    </div>
+
 </template>
 <script>
 import {
-    GET_PROFILE,
     UPDATE_PROFILE,
-    GET_COLLECTION,
-    DELL_COLLECTION,
     authAdminCheck,
 } from "../../api-routes";
 import Placeholder from "../../components/items/Placeholder.vue";
@@ -177,14 +137,12 @@ export default {
             about_img: "",
             about_information: "",
             update: false,
-            password: "",
-            collections: [],
+
             admin: false,
-            infopanel: JSON.parse(localStorage.getItem("infopanelprofile")) ?? null,
         };
     },
     mounted() {
-        this.getCollec();
+
         authAdminCheck().then((r) => {
             if (r.status == 200) {
                 this.admin = true;
@@ -210,38 +168,12 @@ export default {
             this.about_information =
                 this.$store.getters.getprofile.about_information ?? "напиши свой текст";
             this.avatarImg = "/storage/" + this.avatar;
-
         }
     },
     methods: {
         closeInfo() {
             this.infopanel = !this.infopanel;
             localStorage.setItem("infopanelprofile", false);
-        },
-        getCollec() {
-            fetch(GET_COLLECTION, {
-                method: "GET",
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token"),
-                },
-            })
-                .then((r) => {
-                    if (r.status == 200) {
-                        return r.json();
-                    } else {
-                        alert("ошибка на сервере");
-                    }
-                })
-                .then((r) => {
-                    this.collections = r.data;
-
-                    if (this.collections.length > 0) {
-                        if (this.infopanel == null) {
-                            this.infopanel = true;
-
-                        }
-                    }
-                });
         },
         async updatedProfil() {
             const aboutimg = await document.querySelector("#aboutimg");
@@ -252,7 +184,6 @@ export default {
             await formdata.append("last_name", this.last_name);
             await formdata.append("patronymic", this.patronymic);
             await formdata.append("email", this.email);
-            await formdata.append("password", this.password);
             await formdata.append("about_information", editihtext.textContent);
             await formdata.append("avatar", avatar.files[0]);
             await formdata.append("about_img", aboutimg.files[0]);
@@ -271,50 +202,6 @@ export default {
                 }, 3000);
             });
         },
-        dellCollection(id) {
-            this.collections.splice(i, 1);
-
-            fetch(DELL_COLLECTION + id, {
-                method: "GET",
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token"),
-                },
-            }).then((r) => {
-                if (r.status == 204) {
-                    this.getCollec();
-                } else {
-                    alert("ошибка на сервере");
-                }
-            });
-        },
-        // getProfile() {
-        //     fetch(GET_PROFILE, {
-        //         method: "GET",
-        //         headers: {
-        //             Authorization: "Bearer " + localStorage.getItem("token"),
-        //         },
-        //     })
-        //         .then((r) => {
-        //             if (r.status == 200) {
-        //                 return r.json();
-        //             } else {
-        //                 alert("ошибка на сервере");
-        //             }
-        //         })
-        //         .then((r) => {
-        //             this.first_name = r.data.first_name;
-        //             this.last_name = r.data.last_name;
-        //             this.patronymic = r.data.patronymic;
-        //             this.email = r.data.email;
-        //             this.avatar = r.data.avatar;
-        //             this.about_img = r.data.about_img;
-        //             this.about_title = r.data.about_title;
-        //             this.about_information =
-        //             r.data.about_information ?? "напиши свой текст";
-        //             this.avatarImg = this.avatar ? "/storage/" + this.avatar : Background;
-        //         })
-        //         .catch((r) => { });
-        // },
     },
 };
 </script>
@@ -356,7 +243,7 @@ input[type="file"] {
 
 .boder-shodow-radius {
     border-radius: 15px;
-    box-shadow: rgba(2, 0, 51, 0.295) 0 0 60px;
+    box-shadow: rgb(2 0 51 / 20%) 0 0 30px;
     overflow: hidden;
 }
 

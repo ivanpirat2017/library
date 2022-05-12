@@ -112,7 +112,7 @@ export default {
   }
 
   &Items_all {
-        z-index: 1;
+    z-index: 1;
     height: 200px;
     display: flex;
     width: auto;

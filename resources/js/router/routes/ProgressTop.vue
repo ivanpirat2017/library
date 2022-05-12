@@ -3,8 +3,8 @@
         <h1>Топ 100 </h1>
         <div class="ProgressTopUsers">
 
-            <div class="ProgressTopUsersItem " @click="$router.push('/user/'+item.awardUsers.id)" v-for="(item, i) in awardstop" :key="item.awardUsers.id"
-                :class="awardstopclass(i)">
+            <div class="ProgressTopUsersItem " @click="$router.push('/user/' + item.awardUsers.id)"
+                v-for="(item, i) in awardstop" :key="item.awardUsers.id" :class="awardstopclass(i)">
                 <h1>{{ i + 1 }}</h1>
                 <h3>
                     {{ item.awardUsers.last_name }}
@@ -21,7 +21,6 @@ export default {
         awardstop() {
             return this.$store.getters.getawards
         },
-
     },
     methods: {
         awardstopclass(i) {
@@ -64,7 +63,6 @@ export default {
     h1 {
         font-size: 3rem;
     }
-
     &Users {
         display: flex;
         flex-direction: column;
@@ -86,13 +84,15 @@ export default {
                 margin: 0;
                 font-size: 2rem;
             }
-
             h3 {
                 display: flex;
                 align-items: center;
                 justify-content: start;
                 text-align: start;
                 margin: 0;
+                @media (max-width: 400px) {
+                    font-size: 1rem;
+                }
             }
         }
     }

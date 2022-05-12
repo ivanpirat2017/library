@@ -78,7 +78,7 @@
             <img src="../../static/img/search.png" alt="" />
         </router-link>
 
-        <router-link to="/profile" class="menumobileItem" :class="{ active_menu: $route.path == '/profile' }">
+        <router-link to="/profile" class="menumobileItem" :class="{ active_menu: $route.meta.name == 'profile'}">
             <img src="../../static/img/profile.png" alt="" />
         </router-link>
 
@@ -192,6 +192,12 @@ export default {
 
 .active_menu {
     border: #4e24e4 3px solid;
+    &:hover{
+        border: #4e24e4 3px solid;
+    }
+     &:active{
+        border: #4e24e4 3px solid;
+    }
 }
 
 header {
