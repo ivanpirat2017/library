@@ -15,7 +15,7 @@ use App\Http\Controllers\ProgressController;
 use App\Http\Controllers\WatchBookController;
 Route::get('generate', function (){
     \Illuminate\Support\Facades\Artisan::call('storage:link');
- 
+
     echo 'ok';
 });
 
@@ -60,8 +60,5 @@ Route::post('/createaction', [ActionController::class ,'createaction']);
 Route::get('/getaction', [ActionController::class ,'geteaction']);
 Route::get('/getactionid/{id}', [ActionController::class ,'getActionId']);
 Route::middleware('auth:api')->get('/addwatchbook/{id}', [WatchBookController::class ,'addwatchBook']);
-
-
-
-
 Route::middleware('auth:api')->get('/award/{id}', [ProgressController::class ,'Award']);
+Route::middleware('auth:api')->get('/getawards', [ProgressController::class ,'getawards']);

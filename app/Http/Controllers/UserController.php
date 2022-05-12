@@ -13,18 +13,13 @@ class UserController extends Controller
 {
     function updateprofile(Request $request)
     {
-
- 
-
         if (request()->hasFile('avatar')) {
             $avatar = $request->avatar ?  $request->file('avatar')->store('public/images') : null;
         }
         if (request()->hasFile('about_img')) {
             $about_img = $request->about_img ?  $request->file('about_img')->store('public/images') : null;
         }
-
         $userid = DB::table('users')->find(Auth::user()->id);
-
         DB::table('users')->where('id', '=', Auth::user()->id)->update([
             'avatar' => $avatar ?? $userid->avatar,
             'about_title' => $request->about_title ?? $userid->about_title,

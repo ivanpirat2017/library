@@ -10,7 +10,7 @@ export const GET_GENRE = url + '/getgenre/';
 
 export const GET_AWARD = url + '/award/';
 
-
+export const GET_GET_AWARDS = url + '/getawards/';
 
 export const GET_GENRE_BOOK_ID = url + '/getbookid/';
 export const GET_GENRE_BOOKS = url + '/getgenrebooks/';

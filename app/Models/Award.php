@@ -15,12 +15,15 @@ class Award extends Model
         'award_task_id',
     ];
     protected $with = [
-        'taskitem', 
+        'taskitem', 'setuser',
     ];
     public function taskitem()
     {
         return  $this->hasOne(Task::class, 'id', 'award_task_id');
     }
-
-
+    public function setuser()
+    {
+        return  $this->hasOne(User::class, 'id', 'award_user_id');
+    }
+    
 }

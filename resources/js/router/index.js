@@ -13,6 +13,7 @@ import NotFound from './routes/NotFound.vue'
 import Action from './routes/Action.vue'
 import Start from '../components/Start.vue'
 import User from './routes/User.vue'
+import ProgressTop from './routes/ProgressTop.vue'
 import ChatBook from './routes/ChatBook.vue'
 import Admin from './routes/admin/Admin.vue'
 import AddBooks from './routes/admin/AddBooks.vue'
@@ -79,6 +80,11 @@ const routes = [
                         path: "mycard",
                         name: "MyCard",
                         component: User,
+                    },
+                    {
+                        path: "top",
+                        name: "ProgressTop",
+                        component: ProgressTop,
                     },
                 ]
             },

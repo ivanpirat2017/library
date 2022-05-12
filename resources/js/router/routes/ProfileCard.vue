@@ -1,7 +1,7 @@
 <template  >
     <InfoItem :closeInfo="closeInfo" v-if="infopanel" :title="'Коллекция'"
         :textbody="'Вы впервые создали коллекцию, она отображается внизу вашей страницы, при нажатие на неё она раскроется и там будут ваши книги.'" />
-
+    <Placeholder v-if="loadingBool" />
     <div class="m5-l-r">
         <div class="main-body">
             <div class="row gutters-sm">
@@ -154,9 +154,7 @@ import {
     DELL_COLLECTION,
     authAdminCheck,
 } from "../../api-routes";
-
 import Placeholder from "../../components/items/Placeholder.vue";
-import Background from "../../../static/img/avatar.png";
 import InfoItem from "../../components/items/InfoItem.vue";
 import Book from "../../components/items/Book.vue";
 import ButtonGoBack from "../../components/items/ButtonGoBack.vue";
@@ -169,7 +167,7 @@ export default {
     },
     data() {
         return {
-            first_name: "",
+            first_name: '',
             last_name: "",
             patronymic: "",
             email: "",
@@ -178,7 +176,6 @@ export default {
             avatarImg: null,
             about_img: "",
             about_information: "",
-
             update: false,
             password: "",
             collections: [],
@@ -187,7 +184,6 @@ export default {
         };
     },
     mounted() {
-        this.getProfile();
         this.getCollec();
         authAdminCheck().then((r) => {
             if (r.status == 200) {
@@ -195,9 +191,26 @@ export default {
             }
         });
     },
+    watch: {
+        getUserPrifile() {
+        }
+    },
     computed: {
         loadingBool() {
-            return this.first_name ? false : true
+            return this.$store.getters.getloading
+        },
+        getUserPrifile() {
+            this.first_name = this.$store.getters.getprofile.first_name;
+            this.last_name = this.$store.getters.getprofile.last_name;
+            this.patronymic = this.$store.getters.getprofile.patronymic;
+            this.email = this.$store.getters.getprofile.email;
+            this.avatar = this.$store.getters.getprofile.avatar;
+            this.about_img = this.$store.getters.getprofile.about_img;
+            this.about_title = this.$store.getters.getprofile.about_title;
+            this.about_information =
+                this.$store.getters.getprofile.about_information ?? "напиши свой текст";
+            this.avatarImg = "/storage/" + this.avatar;
+
         }
     },
     methods: {
@@ -251,7 +264,7 @@ export default {
                     Authorization: "Bearer " + localStorage.getItem("token"),
                 },
             }).then((r) => {
-                this.getProfile();
+                this.$store.dispatch('GET_API_PROFILE')
                 this.update = true;
                 setTimeout(() => {
                     this.update = false;
@@ -274,34 +287,34 @@ export default {
                 }
             });
         },
-        getProfile() {
-            fetch(GET_PROFILE, {
-                method: "GET",
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token"),
-                },
-            })
-                .then((r) => {
-                    if (r.status == 200) {
-                        return r.json();
-                    } else {
-                        alert("ошибка на сервере");
-                    }
-                })
-                .then((r) => {
-                    this.first_name = r.data.first_name;
-                    this.last_name = r.data.last_name;
-                    this.patronymic = r.data.patronymic;
-                    this.email = r.data.email;
-                    this.avatar = r.data.avatar;
-                    this.about_img = r.data.about_img;
-                    this.about_title = r.data.about_title;
-                    this.about_information =
-                    r.data.about_information ?? "напиши свой текст";
-                    this.avatarImg = this.avatar ? "/storage/" + this.avatar : Background;
-                })
-                .catch((r) => { });
-        },
+        // getProfile() {
+        //     fetch(GET_PROFILE, {
+        //         method: "GET",
+        //         headers: {
+        //             Authorization: "Bearer " + localStorage.getItem("token"),
+        //         },
+        //     })
+        //         .then((r) => {
+        //             if (r.status == 200) {
+        //                 return r.json();
+        //             } else {
+        //                 alert("ошибка на сервере");
+        //             }
+        //         })
+        //         .then((r) => {
+        //             this.first_name = r.data.first_name;
+        //             this.last_name = r.data.last_name;
+        //             this.patronymic = r.data.patronymic;
+        //             this.email = r.data.email;
+        //             this.avatar = r.data.avatar;
+        //             this.about_img = r.data.about_img;
+        //             this.about_title = r.data.about_title;
+        //             this.about_information =
+        //             r.data.about_information ?? "напиши свой текст";
+        //             this.avatarImg = this.avatar ? "/storage/" + this.avatar : Background;
+        //         })
+        //         .catch((r) => { });
+        // },
     },
 };
 </script>

@@ -13,6 +13,9 @@
             <router-link class="btn  " :to="'/profile/mycard'">
                 <img src="../../../static/img/id-card.png" height="60" />
             </router-link>
+             <router-link class="btn  " :to="'/profile/top'">
+                <img src="../../../static/img/podium.png" height="50" />
+            </router-link>
         </div>
         <router-view></router-view>
     </main>
@@ -25,7 +28,6 @@ export default {
     mounted() {
         this.$store.dispatch('GET_API_PROFILE')
     },
-
     methods: {
         logout() {
             fetch(LOGOUT, {

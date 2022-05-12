@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div v-else class="m5-l-r notAuth">
+    <div v-else-if="!notAuth && !loadingBool && this.$route.params.id" class="m5-l-r notAuth">
         <h2 v-if="err">
             Неизвестная ошибка
             <img src="../../../static/img/system.png" height="60" alt="" />
@@ -70,7 +70,7 @@ export default {
     data() {
         return {
             user: null,
-            notAuth: false,
+            notAuth: null,
             img: null,
             err: false,
             aboutImg: null,
@@ -79,15 +79,20 @@ export default {
     },
     computed: {
         loadingBool() {
-            if (this.$store.getters.getprofile.id) {
-                return false;
+            if (this.notAuth === false) {
+                return false
             }
+            if (!this.$route.params.id) {
+
+                return false
+            }
+
             return this.user ? false : true
         }
     },
     mounted() {
         this.getUser();
-        this.getAward();
+
     },
     methods: {
         getUser() {
@@ -107,15 +112,18 @@ export default {
                     }
                 })
                 .then((r) => {
+                    this.getAward();
                     this.user = r.data;
                     this.img = this.user.avatar ? "/storage/" + this.user.avatar : avatar;
                     this.aboutImg = this.user.about_img
                         ? "/storage/" + this.user.about_img
                         : backgroundUser;
-                    this.notAuth = true;
-
+                    this.notAuth = true
                 })
-                .catch((r) => this.getUser())
+                .catch((r) => {
+                    this.notAuth = false
+                    this.getUser()
+                })
 
         },
         getAward() {
