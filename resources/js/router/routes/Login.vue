@@ -1,4 +1,5 @@
 <template >
+    <Placeholder v-if="loadingBool" />
     <main class="main-login-pm">
         <div class="logincentr">
             <div class="login">
@@ -34,16 +35,23 @@
 </template>
 <script>
 import { LOGIN } from "../../api-routes";
-
+import { imglouder } from "../../script/imglouder";
+import Placeholder from "../../components/items/Placeholder.vue";
 export default {
+    components: {
+        Placeholder,
+    },
     data() {
         return {
             login: "",
             password: "",
             error: {},
+            loadingBool: true,
         };
     },
-    mounted() { },
+    mounted() {
+        this.loadingBool = !imglouder()
+    },
     methods: {
         getToken() {
             const form = new FormData();
@@ -164,6 +172,7 @@ input {
         background: url(../../../static/img/background.jpg);
         justify-content: end;
     }
+
     @media (max-height: 900px) {
         min-height: 130vh;
     }

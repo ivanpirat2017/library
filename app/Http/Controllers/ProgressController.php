@@ -25,7 +25,11 @@ class ProgressController extends Controller
         }
         return    response()->json(['data' => $arrusers], 200);
     }
+    public function fdssssdsds(Request $request)
+    {
 
+        return    $request->ip() ;
+    }
     public function Award($id)
     {
         if (Task::count() == 0) {

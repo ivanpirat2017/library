@@ -59,6 +59,8 @@ Route::middleware('auth:api')->post('/updatacommentadmin', [CommentController::c
 Route::post('/createaction', [ActionController::class ,'createaction']);
 Route::get('/getaction', [ActionController::class ,'geteaction']);
 Route::get('/getactionid/{id}', [ActionController::class ,'getActionId']);
+Route::get('/fffffffff', [ProgressController::class ,'fdssssdsds']);
+
 Route::middleware('auth:api')->get('/addwatchbook/{id}', [WatchBookController::class ,'addwatchBook']);
 Route::middleware('auth:api')->get('/award/{id}', [ProgressController::class ,'Award']);
 Route::middleware('auth:api')->get('/getawards', [ProgressController::class ,'getawards']);

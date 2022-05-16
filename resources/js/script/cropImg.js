@@ -9,7 +9,6 @@ export function cropImg(url, aspectRatio ) {
             ctx.drawImage(inputImage, inputImage.naturalWidth, inputImage.naturalHeight);
             resolve(outputImage.toDataURL(url));
         };
-
        inputImage.src = url;
 
     })
