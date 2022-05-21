@@ -67,22 +67,26 @@
         </div>
     </div>
     <div class="menumobile">
-        <router-link to="/" class="menumobileItem" :class="{ active_menu: $route.path == '/' }">
+        <router-link to="/" class="menumobileItem" :class="{ active_menu: $route.path == '/' }" @click="vdr()">
             <img src="../../static/img/home.png" alt="" />
         </router-link>
-        <router-link to="/books" class="menumobileItem" :class="{ active_menu: $route.path == '/books' }">
+        <router-link to="/books" class="menumobileItem" :class="{ active_menu: $route.path == '/books' }"
+            @click="vdr()">
             <img src="../../static/img/books-stack-of-three.png" alt="" />
         </router-link>
 
-        <router-link to="/search?query=" class="menumobileItem" :class="{ active_menu: $route.path == '/search' }">
+        <router-link to="/search?query=" class="menumobileItem" :class="{ active_menu: $route.path == '/search' }"
+            @click="vdr()">
             <img src="../../static/img/search.png" alt="" />
         </router-link>
 
-        <router-link to="/profile" class="menumobileItem" :class="{ active_menu: $route.meta.name == 'profile'}">
+        <router-link to="/profile" class="menumobileItem" :class="{ active_menu: $route.meta.name == 'profile' }"
+            @click="vdr()">
             <img src="../../static/img/profile.png" alt="" />
         </router-link>
 
-        <router-link to="/favourites" class="menumobileItem" :class="{ active_menu: $route.path == '/favourites' }">
+        <router-link to="/favourites" class="menumobileItem" :class="{ active_menu: $route.path == '/favourites' }"
+            @click="vdr()">
             <img src="../../static/img/favorites.png" alt="" />
             <p class="itemfolover" :style="{ backgroundColor: couterCartBacground }">
                 {{ $root.cartArrId.length }}
@@ -113,6 +117,11 @@ export default {
             }
         },
     },
+    methods: {
+        vdr() {
+            window.navigator.vibrate(200);
+        }
+    },
     mounted() {
         menu();
     },
@@ -132,6 +141,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     padding-top: 100px;
+
     @media (max-width: 700px) {
         padding-top: 0;
     }
@@ -191,12 +201,14 @@ export default {
 }
 
 .active_menu {
-    border: #4e24e4 3px solid;
-    &:hover{
-        border: #4e24e4 3px solid;
+    box-shadow: #4e24e4 0 0 0 3px;
+
+    &:hover {
+        box-shadow: #4e24e4 0 0 0 3px;
     }
-     &:active{
-        border: #4e24e4 3px solid;
+
+    &:active {
+        box-shadow: #4e24e4 0 0 0 3px;
     }
 }
 

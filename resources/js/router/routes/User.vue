@@ -1,12 +1,20 @@
 <template  >
     <Placeholder v-if="loadingBool" />
     <div v-if="notAuth" class="cardUser m5-l-r">
+
         <div class="cardUserinfo">
+            <div class="profilePlaceholder " v-if="loder">
+                <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Загрузка...</span>
+                </div>
+            </div>
             <div class="cardUserinfologo">
                 <img :src="img" alt="" />
+
             </div>
             <div class="cardUserinfoimg">
                 <img :src="aboutImg" alt="" />
+
             </div>
             <div class="cardUserinfotext">
                 <h2>{{ user.first_name }} {{ user.last_name }}</h2>
@@ -75,6 +83,7 @@ export default {
             err: false,
             aboutImg: null,
             Awards: [],
+            loder: true
         };
     },
     computed: {
@@ -86,13 +95,11 @@ export default {
 
                 return false
             }
-
             return this.user ? false : true
         }
     },
     mounted() {
         this.getUser();
-
     },
     methods: {
         getUser() {
@@ -119,6 +126,7 @@ export default {
                         ? "/storage/" + this.user.about_img
                         : backgroundUser;
                     this.notAuth = true
+                    this.loder = false
                 })
                 .catch((r) => {
                     this.notAuth = false

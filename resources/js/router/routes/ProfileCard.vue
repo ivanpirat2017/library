@@ -1,6 +1,9 @@
 <template  >
-
-    <Placeholder v-if="loadingBool" />
+    <div class="profilePlaceholder " v-if="loder">
+        <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Загрузка...</span>
+        </div>
+    </div>
     <div class="m5-l-r">
         <div class="main-body">
             <div class="row gutters-sm">
@@ -89,7 +92,7 @@
                                 </div>
                             </div>
                             <hr />
-                            
+
                             <div class="alert alert-info" role="alert" v-if="update">
                                 Данные в профиле успешно обновлены
                             </div>
@@ -137,12 +140,11 @@ export default {
             about_img: "",
             about_information: "",
             update: false,
-
+            loder: true,
             admin: false,
         };
     },
     mounted() {
-
         authAdminCheck().then((r) => {
             if (r.status == 200) {
                 this.admin = true;
@@ -168,6 +170,7 @@ export default {
             this.about_information =
                 this.$store.getters.getprofile.about_information ?? "напиши свой текст";
             this.avatarImg = "/storage/" + this.avatar;
+            this.loder = false
         }
     },
     methods: {

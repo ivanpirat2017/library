@@ -2,9 +2,14 @@
     <InfoItem :closeInfo="newUserBookfaloverClose" v-if="newUserBookfalover" :title="'Здравствуйте!'"
         :textbody="' Все отмеченные книги, будут находиться на странице избранное'" :textbody2="''" />
     <div class="Book">
+        <div class="BookPlaceholder " v-if="loderimg">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Загрузка...</span>
+            </div>
+        </div>
         <div>
             <div class="BookImg">
-                <img :src="img" :key="item.id" />
+                <img :src="img" :key="item.id" :id="'bookimgid' + item.id" />
             </div>
             <h4>{{ item.title }}</h4>
         </div>
@@ -29,11 +34,17 @@ export default {
         InfoItem,
     },
     props: ["item", "collection"],
-    mounted() { },
+    mounted() {
+        const imgLd = document.querySelector('#bookimgid' + this.item.id);
+        imgLd.onload = () => {
+            this.loderimg = false
+        }
+    },
     data() {
         return {
             cartArrId: this.$root.cartArrId,
             img: this.item.bookimg ? "/storage/" + this.item.bookimg : Bookimg,
+            loderimg: true,
             newUserBookfalover:
                 JSON.parse(localStorage.getItem("newUserBookfalover1")) ?? null,
         };
@@ -66,6 +77,19 @@ export default {
 </script>
 <style  lang="scss" >
 .Book {
+    &Placeholder {
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     &Cnt {
         position: relative;
 
@@ -134,6 +158,7 @@ export default {
     justify-content: space-between;
     flex-direction: column;
     overflow: hidden;
+    position: relative;
     border-radius: 10px;
     padding: 10px;
     max-width: 300px;
@@ -148,7 +173,8 @@ export default {
     div {
         h4 {
             margin-top: 0.5rem;
-          margin-bottom:0;
+            margin-bottom: 0;
+
             @media (max-width: 450px) {
                 font-size: 0.9rem;
             }

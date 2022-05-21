@@ -28,7 +28,7 @@ class BookController extends Controller
                 ->rightJoin('genres', 'books.genre_book_id', '=', 'genres.id')
                 ->rightJoin('book_status', 'books.book_status_id', '=', 'book_status.id')
                 ->orWhere('genres.genrename', 'like', '%' . $search . '%')
-                ->select('books.id', 'books.title', 'books.bookimg', 'books.reting', 'books.author', 'books.release', 'genres.genre', 'book_status.status')->orderBy('id', 'desc')->get();
+                ->select('books.id', 'books.title', 'books.bookimg', 'books.reting', 'books.author', 'books.release', 'genres.genre', 'book_status.status')->orderBy('id', 'desc')->limit(100)->get();
             return response()->json(['data' => $books, 200]);
         }
 
@@ -142,9 +142,7 @@ class BookController extends Controller
             ->rightJoin('book_status', 'books.book_status_id', '=', 'book_status.id')
             ->where('genres.genre', '=', $genreid)
             ->select('books.id', 'books.title', 'books.bookimg', 'books.reting', 'books.author', 'books.release', 'genres.genre', 'book_status.status');
-        // $books = Book::whereHas('getGenre', function ($query) use ($genreid) {
-        //     return  $query->where('genre', '=', $genreid);
-        // });
+ 
         $genresdaat =    $genres->orderBy('reting', 'desc')->paginate(30) ;
 
         return response()->json([
@@ -153,10 +151,7 @@ class BookController extends Controller
     }
     function getnewbooks()
     {
-        // $genres = DB::table('books')->rightJoin('genres', 'books.genre_book_id', '=', 'genres.id')
-        //     ->rightJoin('book_status', 'books.book_status_id', '=', 'book_status.id')
-        //     ->select('books.id', 'books.title', 'books.description', 'books.bookimg', 'books.author', 'books.bookurl', 'books.reting', 'books.release', 'genres.genre', 'genres.genrename', 'book_status.status')->limit(30)
-        //     ->orderBy('id', 'desc')->get();
+
         return response()->json(['data' => BookAboutResource::collection(Book::orderBy('id', 'desc')->limit(30)->get())], 200);
     }
     function getpopularbooks()

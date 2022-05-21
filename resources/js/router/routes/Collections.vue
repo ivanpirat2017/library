@@ -1,4 +1,9 @@
 <template >
+    <div class="profilePlaceholder " v-if="loder">
+        <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Загрузка...</span>
+        </div>
+    </div>
     <InfoItem :closeInfo="closeInfo" v-if="infopanel" :title="'Коллекция'"
         :textbody="'Вы впервые создали коллекцию, она отображается внизу вашей страницы, при нажатие на неё она раскроется и там будут ваши книги.'" />
     <div>
@@ -52,6 +57,7 @@ export default {
     data() {
         return {
             collections: [],
+            loder: true,
             infopanel: JSON.parse(localStorage.getItem("infopanelprofile")) ?? null,
         }
     },
@@ -76,7 +82,7 @@ export default {
                 })
                 .then((r) => {
                     this.collections = r.data;
-
+                    this.loder = false
                     if (this.collections.length > 0) {
                         if (this.infopanel == null) {
                             this.infopanel = true;

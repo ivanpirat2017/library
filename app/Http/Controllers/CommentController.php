@@ -29,11 +29,11 @@ class CommentController extends Controller
     {
         if (Auth::user()->getAdminBool()) {
             if ($cmd == 'dell') {
-                $commets = CommentResource::collection(Comment::where('dell', '=', true)->orderBy('id', 'desc')->get());
+                $commets = CommentResource::collection(Comment::where('dell', '=', true)->orderBy('id', 'desc')->limit(400)->get());
             } else  if ($cmd == 'push') {
-                $commets = CommentResource::collection(Comment::where('selection', '=', true)->orderBy('id', 'desc')->get());
+                $commets = CommentResource::collection(Comment::where('selection', '=', true)->orderBy('id', 'desc')->limit(400)->get());
             } else {
-                $commets = CommentResource::collection(Comment::where('dell', '=', false)->where('selection', '=', false)->orderBy('id', 'desc')->get());
+                $commets = CommentResource::collection(Comment::where('dell', '=', false)->where('selection', '=', false)->orderBy('id', 'desc')->limit(400)->get());
             }
 
             return response()->json(['data' => $commets,], 200);
