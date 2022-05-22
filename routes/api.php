@@ -25,6 +25,7 @@ Route::middleware('auth:api')->get('/dellCollection/{id}', [CollectionController
 Route::middleware('auth:api')->get('/deletebooks/{id}', [BookController::class ,'DeleteBooks']);
 Route::post('/login', [AuthController::class ,'login']);
 Route::post('/register', [AuthController::class ,'reg']);
+Route::middleware('auth:api')->get('/gettokens', [AuthController::class ,'getTokens']);
 Route::middleware('auth:api')->post('/logout', [AuthController::class ,'logout']);
 Route::middleware('auth:api')->get('/authcheck', [AuthController::class ,'authCheck']);
 Route::middleware('auth:api')->get('/authadmincheck', [AuthController::class ,'authAdminCheck']);

@@ -1,4 +1,5 @@
 <template>
+    <div class="site-noise"></div>
     <header class="header_menu" v-show="$route.name != 'NotFound' && $route.name != 'Admin'">
         <img id="menu_next" src="../../static/img/next.png" alt="" />
         <div class="menu m5-l-r">
@@ -119,7 +120,7 @@ export default {
     },
     methods: {
         vdr() {
-            window.navigator.vibrate(200);
+            window.navigator.vibrate(50);
         }
     },
     mounted() {
@@ -326,5 +327,86 @@ header {
             padding: 0 10px;
         }
     }
+}
+
+.site-noise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 90;
+    &::before {
+        content: '';
+        position: absolute;
+        top: -100%;
+        left: -100%;
+        height: 300%;
+        width: 300%;
+        background: url(../../static/img/noise.png);
+        pointer-events: none;
+        display: block;
+        opacity: .4;
+        animation: grain 2s steps(10) infinite;
+        will-change: transform;
+    }
+
+
+    @keyframes grain {
+
+        0%,
+        to {
+            -webkit-transform: translate(0);
+            transform: translate(0);
+        }
+
+        10% {
+            -webkit-transform: translate(-5%, -10%);
+            transform: translate(-5%, -10%);
+        }
+
+        20% {
+            -webkit-transform: translate(-15%, 5%);
+            transform: translate(-15%, 5%);
+        }
+
+        30% {
+            -webkit-transform: translate(7%, -25%);
+            transform: translate(7%, -25%);
+        }
+
+        40% {
+            -webkit-transform: translate(21%, 25%);
+            transform: translate(21%, 25%);
+        }
+
+        50% {
+            -webkit-transform: translate(-25%, 10%);
+            transform: translate(-25%, 10%);
+        }
+
+        60% {
+            -webkit-transform: translate(15%, 5%);
+            transform: translate(15%, 5%);
+        }
+
+        70% {
+            -webkit-transform: translateY(15%);
+            transform: translateY(15%);
+        }
+
+        80% {
+            -webkit-transform: translate(25%, 35%);
+            transform: translate(25%, 35%);
+        }
+
+        90% {
+            -webkit-transform: translate(-10%, 10%);
+            transform: translate(-10%, 10%);
+        }
+    }
+
 }
 </style>

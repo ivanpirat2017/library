@@ -19,8 +19,8 @@ class UserController extends Controller
         if (request()->hasFile('about_img')) {
             $about_img = $request->about_img ?  $request->file('about_img')->store('public/images') : null;
         }
-        $userid = DB::table('users')->find(Auth::user()->id);
-        DB::table('users')->where('id', '=', Auth::user()->id)->update([
+        $userid = DB::table('users')->find(Auth::user()->user_token_id);
+        DB::table('users')->where('id', '=', Auth::user()->user_token_id)->update([
             'avatar' => $avatar ?? $userid->avatar,
             'about_title' => $request->about_title ?? $userid->about_title,
             'about_information' => $request->about_information ?? $userid->about_information,
@@ -35,7 +35,7 @@ class UserController extends Controller
     }
     function getprofile()
     {
-        $user = DB::table('users')->where('id', '=',  Auth::user()->id)->first();
+        $user = DB::table('users')->where('id', '=',  Auth::user()->user_token_id)->first();
         return response()->json([
             'data' => [
                 'id' => $user->id,

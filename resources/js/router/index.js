@@ -22,6 +22,7 @@ import EditAdmin from './routes/admin/EditAdmin.vue'
 import { authCheck, authAdminCheck } from "../api-routes";
 import Collections from './routes/Collections.vue'
 import Secure from './routes/Secure.vue'
+import Token from './routes/Token.vue'
 const routes = [
     {
         path: '/:pathMatch(.*)*',
@@ -115,6 +116,14 @@ const routes = [
                             name: 'profile'
                         },
                     },
+                    {
+                        path: "token",
+                        name: "Token",
+                        component: Token,
+                        meta: {
+                            name: 'profile'
+                        },
+                    },
                 ]
             },
             {
@@ -178,7 +187,6 @@ const router = createRouter({
     routes,
 });
 router.beforeEach(async (to, from) => {
-
     if (to.meta.name == 'admin') {
         return await authAdminCheck().then(r => {
             if (r.status == 200) {

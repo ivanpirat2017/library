@@ -1,5 +1,5 @@
 <template  >
-   
+
     <div class="m5-l-r">
         <div class="main-body">
             <div class="row gutters-sm">
@@ -44,7 +44,7 @@
                             <div class="row">
                                 <div class="col-sm-12 d-flex-wrap-gap">
                                     <button class="btn  btn-primary" @click="updatedProfil()">
-                                     Изменить пароль
+                                        Изменить пароль
                                     </button>
                                 </div>
                             </div>
@@ -58,10 +58,7 @@
 
 </template>
 <script>
-import {
-    UPDATE_PROFILE,
-    authAdminCheck,
-} from "../../api-routes";
+import { UPDATE_PROFILE } from "../../api-routes";
 import Placeholder from "../../components/items/Placeholder.vue";
 import InfoItem from "../../components/items/InfoItem.vue";
 import Book from "../../components/items/Book.vue";
@@ -114,6 +111,8 @@ export default {
                     }).then((r) => {
                         this.$store.dispatch('GET_API_PROFILE')
                         this.update = true;
+                        this.num1 = Math.round(Math.random() * 20)
+                        this.num2 = Math.round(Math.random() * 20)
                         setTimeout(() => {
                             this.update = false;
                         }, 3000);

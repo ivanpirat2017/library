@@ -142,17 +142,16 @@ class BookController extends Controller
             ->rightJoin('book_status', 'books.book_status_id', '=', 'book_status.id')
             ->where('genres.genre', '=', $genreid)
             ->select('books.id', 'books.title', 'books.bookimg', 'books.reting', 'books.author', 'books.release', 'genres.genre', 'book_status.status');
- 
-        $genresdaat =    $genres->orderBy('reting', 'desc')->paginate(30) ;
+
+        $genresdaat =    $genres->orderBy('reting', 'desc')->paginate(30);
 
         return response()->json([
-            'data' =>$genresdaat
+            'data' => $genresdaat
         ], 200);
     }
     function getnewbooks()
     {
-
-        return response()->json(['data' => BookAboutResource::collection(Book::orderBy('id', 'desc')->limit(30)->get())], 200);
+        return response()->json(['data' => BookAboutResource::collection(Book::inRandomOrder()->orderBy('id', 'desc')->limit(30)->get())], 200);
     }
     function getpopularbooks()
     {

@@ -13,7 +13,7 @@ class CollectionController extends Controller
     function creatrCollection(Request $request)
     {
         Collection::create([
-            'users_id' => Auth::user()->id,
+            'users_id' => Auth::user()->user_token_id,
             'namecollection' => $request->namecollection,
             'booksarr' => $request->booksarr,
         ]);
@@ -21,13 +21,13 @@ class CollectionController extends Controller
     }
     function dellCollection($id)
     {
-        Collection::where('users_id','=',Auth::user()->id)->where('id','=',$id)-> delete();
+        Collection::where('users_id','=',Auth::user()->user_token_id)->where('id','=',$id)-> delete();
         return response()->json(null, 204);
     }
     function getCollection()
     {
         $array_push = [];
-        $collections = Collection::where('users_id', '=', Auth::user()->id)->get();
+        $collections = Collection::where('users_id', '=', Auth::user()->user_token_id)->get();
         foreach ($collections as $item) {
             $books = Book::whereIn('id', json_decode($item->booksarr))->get();
             $collect['namecollection']= $item->namecollection;

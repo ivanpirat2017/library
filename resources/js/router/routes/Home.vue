@@ -27,7 +27,7 @@
                 </p>
             </div>
         </div>
-        <h3 class="m5-l-r t-pt-35">Новые книги</h3>
+        <h3 class="m5-l-r t-pt-35">Интересные книги</h3>
         <div class="books m5-l-r t-pb-35 ">
             <Book :item="item" v-for="(item, id) in books" :key="id" />
         </div>

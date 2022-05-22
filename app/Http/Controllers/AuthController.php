@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Token;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
     function login(Request $request)
     {
-
-
-
         $valide = Validator::make($request->all(), [
             'email' => 'required|max:100|email',
             'password' => 'required|max:100'
@@ -26,9 +25,26 @@ class AuthController extends Controller
         }
         if ($user = User::where('email', '=', $request->email)->first()) {
             if (Hash::check($request->password, $user->password)) {
+               $ipdata = getpi($request->ip());
+                $rand = Str::random(64);
+                $token = Token::create([
+                    'user_token_id' => $user->id,
+                    'api_token' =>   $rand,
+                    'browser'=>$request->browser,
+                    'ip' => $ipdata->ip ?? '',
+                    'type' => $ipdata->type ?? '',
+                    'continent' => $ipdata->continent ?? '',
+                    'country' => $ipdata->country ?? '',
+                    'city' => $ipdata->city ?? '',
+                    'latitude' => $ipdata->latitude ?? '',
+                    'longitude' => $ipdata->longitude ?? '',
+                    'postal' => $ipdata->postal ?? '',
+                    'flagimg' => $ipdata->flag->img ?? '',
+                    'del' => false,
+                ]);
                 return  response()->json([
                     'data' => [
-                        'token' =>  $user->gettoken()
+                        'token' => $token->api_token
                     ]
                 ], 200);
             }
@@ -45,8 +61,6 @@ class AuthController extends Controller
     }
     function reg(Request $request)
     {
-
-
         $valide = Validator::make($request->all(), [
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
@@ -61,13 +75,14 @@ class AuthController extends Controller
         }
         $request['password'] = Hash::make($request->password);
         $userNull = User::all()->count();
+
         if ($userNull == 0) {
             $request['role'] = 'admin';
         }
         User::create($request->all());
         return  response()->json(null, 204);
     }
-    function authCheck( )
+    function authCheck()
     {
         return  response()->json([
             'data' => Auth::check()
@@ -87,10 +102,28 @@ class AuthController extends Controller
             ]
         ], 401);
     }
-    public function logout()
+
+    public function logout(Request $request)
     {
-        Auth::user()->api_token = null;
-        Auth::user()->save();
+        $token =  Token::where('api_token', '=', $request->api_token)->first();
+        $token->api_token = null;
+        $token->del = true;
+        $token->save();
         return  response()->json(null, 204);
     }
+    public function getTokens()
+    {
+        return  response()->json(['data' => Token::where('user_token_id', '=', Auth::user()->user_token_id)->where('del', '=', false)->get()], 200);
+    }
+}
+function getpi($ip)
+{
+    $url = 'http://ipwho.is/' . $ip;
+
+    $curl = curl_init($url);
+    curl_setopt_array($curl, [
+        CURLOPT_RETURNTRANSFER => TRUE,
+    ]);
+    $resoult = curl_exec($curl);
+    return json_decode($resoult);
 }

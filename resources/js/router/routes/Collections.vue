@@ -7,7 +7,7 @@
     <InfoItem :closeInfo="closeInfo" v-if="infopanel" :title="'Коллекция'"
         :textbody="'Вы впервые создали коллекцию, она отображается внизу вашей страницы, при нажатие на неё она раскроется и там будут ваши книги.'" />
     <div>
-        <h2 class="m5-l-r p-t-50 name_ganr" v-if="collections.length != 0">
+        <h2 class="m5-l-r  name_ganr" v-if="collections.length != 0">
             Ваша коллекция книг
         </h2>
         <h2 class="m5-l-r p-t-50 name_ganr" v-else>Ваша коллекция книг пуста</h2>

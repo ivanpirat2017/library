@@ -3,14 +3,14 @@ let url = window.location.origin + '/api';
 export const LOGIN = url + '/login';
 export const REGISTER = url + '/register';
 export const LOGOUT = url + '/logout';
-
+export const GET_TOKENS = url + '/gettokens';
 
 export const GET_ALL_GENRES = url + '/getgenres';
 export const GET_GENRE = url + '/getgenre/';
 
 export const GET_AWARD = url + '/award/';
 
-export const GET_GET_AWARDS = url + '/getawards/';
+export const  GET_AWARDS = url + '/getawards';
 
 export const GET_GENRE_BOOK_ID = url + '/getbookid/';
 export const GET_GENRE_BOOKS = url + '/getgenrebooks/';

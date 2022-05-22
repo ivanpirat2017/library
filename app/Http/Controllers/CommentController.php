@@ -13,7 +13,7 @@ class CommentController extends Controller
     function addcoment(Request $request)
     {
         DB::table('comments')->insert([
-            'user_comment_id' => Auth::user()->id,
+            'user_comment_id' => Auth::user()->user_token_id,
             'book_comment_id' => $request->book_comment_id,
             'message' => $request->message,
         ]);
@@ -56,13 +56,13 @@ class CommentController extends Controller
     function createlikecoment(Request $request)
     {
 
-        $like = DB::table('like_comments')->where('like_comment_id', '=', $request->like_comment_id)->where('like_user_id', '=', Auth::user()->id)->first();
+        $like = DB::table('like_comments')->where('like_comment_id', '=', $request->like_comment_id)->where('like_user_id', '=', Auth::user()->user_token_id)->first();
         if ($like) {
             DB::table('like_comments')->delete($like->id);
             return response()->json(['data' => false], 200);
         } else {
             DB::table('like_comments')->insert([
-                'like_user_id' => Auth::user()->id,
+                'like_user_id' => Auth::user()->user_token_id,
                 'like_comment_id' => $request->like_comment_id
             ]);
             return response()->json(['data' => true], 200);

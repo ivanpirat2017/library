@@ -2,7 +2,7 @@
     <Placeholder v-if="loadingBool" />
     <div class="loading"></div>
     <main>
-        <h2 class="m5-l-r t-pt-35 name_ganr" style="font-size: 36px">Поиск</h2>
+        <h2 class="m5-l-r name_ganr" style="font-size: 36px">Поиск</h2>
         <div class="search t-mt-35">
             <div class="search_content m5-l-r">
                 <h4 class="t-pt-35">Найти книгу</h4>
@@ -30,7 +30,7 @@
                 <div class="books searcbook  ">
                     <img class="not_search_bad" v-if="books.length == 0" src="../../../static/img/sad.png" alt=""
                         srcset="" />
-                    <Book :item="item" v-for="(item, id) in books" :key="id" />
+                    <Book :item="item" v-for="(item ) in books" :key="item.id" />
                 </div>
             </div>
         </div>

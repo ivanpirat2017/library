@@ -10,6 +10,6 @@ export default {};
 }
 .btn-img-pointer{
 
-     filter: drop-shadow(0 0 10pxrgba(0, 0, 0, 0.096)k);
+     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.096) );
 }
 </style>

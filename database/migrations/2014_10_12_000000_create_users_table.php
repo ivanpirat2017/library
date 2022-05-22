@@ -25,7 +25,6 @@ class CreateUsersTable extends Migration
             $table->string('about_title')->nullable();
             $table->text('about_information')->nullable();
             $table->string('role')->nullable() ;
-            $table->string('api_token')->nullable() ;
             $table->timestamps();
         });
     }

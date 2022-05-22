@@ -12,7 +12,7 @@
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center">
                                 <div class="circle-img">
-                                    <img :src="avatarImg" alt="Admin" />
+                                    <img :src="avatarImg" />
                                 </div>
                                 <div class="mt-3">
                                     <h4>{{ last_name }} {{ first_name }}</h4>
@@ -121,6 +121,7 @@ import Placeholder from "../../components/items/Placeholder.vue";
 import InfoItem from "../../components/items/InfoItem.vue";
 import Book from "../../components/items/Book.vue";
 import ButtonGoBack from "../../components/items/ButtonGoBack.vue";
+import avatar from '../../../static/img/avatar.png'
 export default {
     components: {
         Placeholder,
@@ -169,7 +170,7 @@ export default {
             this.about_title = this.$store.getters.getprofile.about_title;
             this.about_information =
                 this.$store.getters.getprofile.about_information ?? "напиши свой текст";
-            this.avatarImg = "/storage/" + this.avatar;
+            this.avatarImg = this.avatar ? "/storage/" + this.avatar : avatar;
             this.loder = false
         }
     },

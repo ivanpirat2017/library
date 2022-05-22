@@ -11,7 +11,7 @@ class WatchBookController extends Controller
     function addwatchBook($id)
     {
         DB::table('watchbooks')->insert([
-            'watch_user_id' => Auth::user()->id,
+            'watch_user_id' => Auth::user()->user_token_id,
             'watch_book_id' => $id,
         ]);
         return response()->json(null, 204);

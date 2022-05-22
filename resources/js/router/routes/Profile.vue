@@ -11,6 +11,9 @@
             <router-link class="  " :to="'/profile'" :class="{ active_menu: $route.name == 'Profile' }">
                 <img src="../../../static/img/profile.png" height="55" />
             </router-link>
+            <router-link class="  " :to="'/profile/token'" :class="{ active_menu: $route.name == 'Token' }">
+                <img src="../../../static/img/responsive.png" height="55" />
+            </router-link>
             <router-link class="  " :to="'/profile/secure'" :class="{ active_menu: $route.name == 'Secure' }">
                 <img src="../../../static/img/shield.png" height="55" />
             </router-link>
@@ -41,8 +44,11 @@ export default {
     },
     methods: {
         logout() {
+            const fotm = new FormData()
+            fotm.append('api_token', localStorage.getItem("token"))
             fetch(LOGOUT, {
                 method: "POST",
+                body: fotm,
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token"),
                 },
@@ -91,6 +97,7 @@ export default {
     padding: 10px 0;
     overflow-x: scroll;
     height: 100px;
+
     &::-webkit-scrollbar {
         height: 5px;
         cursor: pointer;
@@ -116,6 +123,7 @@ export default {
         border-radius: 15px;
         padding: 10px;
         display: flex;
+
         &:hover {
             transform: scale(0.9);
         }

@@ -11,7 +11,7 @@
             <div class="BookImg">
                 <img :src="img" :key="item.id" :id="'bookimgid' + item.id" />
             </div>
-            <h4>{{ item.title }}</h4>
+            <h4>{{ title }}</h4>
         </div>
 
         <div class="BookCnt">
@@ -69,6 +69,9 @@ export default {
         },
     },
     computed: {
+        title() {
+            return (this.item.title.length > 50) ? this.item.title.substr(0, 50 - 1) + '...' : this.item.title;
+        },
         startext() {
             return this.cartArrId.includes(this.item.id) ? FavoritesFull : Favorites;
         },
@@ -174,6 +177,7 @@ export default {
         h4 {
             margin-top: 0.5rem;
             margin-bottom: 0;
+            font-size: 1.1rem;
 
             @media (max-width: 450px) {
                 font-size: 0.9rem;
