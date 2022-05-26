@@ -27,7 +27,7 @@ class CommentController extends Controller
     }
     function getcommentAdmin($cmd)
     {
-        if (Auth::user()->getAdminBool()) {
+        if (Auth::user()->user->getAdminBool()) {
             if ($cmd == 'dell') {
                 $commets = CommentResource::collection(Comment::where('dell', '=', true)->orderBy('id', 'desc')->limit(400)->get());
             } else  if ($cmd == 'push') {
@@ -42,7 +42,7 @@ class CommentController extends Controller
     }
     function UpdataCommentAdmin(Request $request)
     {
-        if (Auth::user()->getAdminBool()) {
+        if (Auth::user()->user->getAdminBool()) {
             if ($request->comand == 'dell') {
                 Comment::find($request->id)->dell();
             }

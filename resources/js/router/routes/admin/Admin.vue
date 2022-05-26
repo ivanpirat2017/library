@@ -1,5 +1,5 @@
 <template >
-  <div class="container">
+  <div class=" ">
     <ul class="nav justify-content-center">
       <li class="nav-item">
         <router-link class="nav-link active" aria-current="page" to="/admin/addbooks">Книги</router-link>
@@ -9,6 +9,9 @@
       </li>
        <li class="nav-item">
         <router-link class="nav-link active" aria-current="page" to="/admin/editadmin">Одобрения комментов</router-link>
+      </li>
+       <li class="nav-item">
+        <router-link class="nav-link active" aria-current="page" to="/admin/search">Редактирование книг</router-link>
       </li>
        <li class="nav-item">
         <router-link class="nav-link active" aria-current="page" to="/">HOME</router-link>

@@ -47,6 +47,7 @@
             </div>
 
             <div class="cardUserinfoAward">
+                <h3 v-if="Awards.length==0">У вас пока нет достижений</h3>
                 <Award v-for="item in Awards" :key="item.id" :item='item' />
             </div>
         </div>

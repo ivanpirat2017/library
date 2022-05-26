@@ -11286,10 +11286,6 @@ textarea.form-control-lg {
   src: url(/fonts/Montserrat-Bold.ttf?0915f0a8c3367a6d05ec1e6bc6ba4abe);
 }
 @font-face {
-  font-family: "mel";
-  src: url(/fonts/Montserrat-ExtraLight.ttf?5ffa03e69b48ec499a255ee4a8268588);
-}
-@font-face {
   font-family: "ml";
   src: url(/fonts/Montserrat-Light.ttf?34270926ef09970234f58962082bc853);
 }
@@ -11300,10 +11296,6 @@ textarea.form-control-lg {
 @font-face {
   font-family: "mr";
   src: url(/fonts/Montserrat-Regular.ttf?2a2d37bf7680d86811db09a7b7177b47);
-}
-@font-face {
-  font-family: "mt";
-  src: url(/fonts/Montserrat-Thin.ttf?53139ad3e8e63860918152e4af248a13);
 }
 html {
   position: relative;

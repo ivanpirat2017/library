@@ -5,6 +5,9 @@ export const REGISTER = url + '/register';
 export const LOGOUT = url + '/logout';
 export const GET_TOKENS = url + '/gettokens';
 
+
+export const BOOK_UPDATE = url + '/bookupdate';
+
 export const GET_ALL_GENRES = url + '/getgenres';
 export const GET_GENRE = url + '/getgenre/';
 

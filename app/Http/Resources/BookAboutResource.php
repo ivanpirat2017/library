@@ -21,8 +21,10 @@ class BookAboutResource extends JsonResource
             'author' => $this->author,
             'bookimg' =>  $this->bookimg,
             'genre' => $this->getGenre->genre,
+            'genreid' => $this->getGenre->id,
             'genrename' => $this->getGenre->genrename,
             'status' => $this->grtStatus->status,
+            'statusid' => $this->grtStatus->id,
             'reting' => $this->reting,
             'release' => $this->release,
         ];

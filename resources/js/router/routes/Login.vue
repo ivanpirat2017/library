@@ -54,17 +54,7 @@ export default {
     },
     methods: {
         getToken() {
-            // const devices = navigator.userAgent.toLowerCase();
-            // let search;
-            // if (devices.search("iphone") > -1) {
-
-            // }
-            // if (devices.search("ipad") > -1) {
-
-            // }
-            // if (devices.search("android") > -1) {
-
-            // }
+ 
             const form = new FormData();
             form.append("email", this.login);
             form.append("password", this.password);

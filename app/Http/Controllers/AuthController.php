@@ -90,7 +90,7 @@ class AuthController extends Controller
     }
     function authAdminCheck(Request $request)
     {
-        if (Auth::user()->role == 'admin') {
+        if (Auth::user()->user->role == 'admin') {
             return  response()->json([
                 'data' => Auth::check()
             ], 200);

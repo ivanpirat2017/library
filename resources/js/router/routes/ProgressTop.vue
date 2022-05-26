@@ -27,6 +27,9 @@ export default {
             loder: true
         }
     },
+    mounted() {
+        this.$store.getters.getawards.length==0 ? this.$store.dispatch('GET_API_AWARDS') : null;
+    },
     computed: {
         awardstop() {
             return this.$store.getters.getawards

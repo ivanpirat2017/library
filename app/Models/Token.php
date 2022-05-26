@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+
 class Token extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -25,5 +26,11 @@ class Token extends Model
         'del',
         'browser'
     ];
-
+    protected $with = [
+        'user'
+    ];
+    public function user()
+    {
+        return  $this->hasOne(User::class, 'id', 'user_token_id');
+    }
 }

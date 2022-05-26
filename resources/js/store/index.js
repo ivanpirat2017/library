@@ -103,8 +103,7 @@ const store = createStore({
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token"),
                 },
-            })
-                .then((r) => {
+            }).then((r) => {
                     if (r.status == 200) {
                         return r.json();
                     }

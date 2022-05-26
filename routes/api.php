@@ -39,7 +39,7 @@ Route::get('/setuser', [ParserController::class ,'setuser']);
 Route::get('/setucoment', [ParserController::class ,'setucoment']);
 Route::get('/setwath', [ParserController::class ,'setWath']);
 Route::get('/getstatus', [BookController::class ,'getStatus']);
-Route::get('/getbookid/{genre}/{bookid}', [BookController::class ,'getbookid']);
+Route::get('/getbookid/{bookid}', [BookController::class ,'getbookid']);
 Route::get('/getgenrebooks/{genre}', [BookController::class ,'getgenrebooks']);
 Route::get('/getnewbooks', [BookController::class ,'getnewbooks']);
 Route::get('/getgenres', [BookController::class ,'getgenres']);
@@ -65,3 +65,5 @@ Route::get('/fffffffff', [ProgressController::class ,'fdssssdsds']);
 Route::middleware('auth:api')->get('/addwatchbook/{id}', [WatchBookController::class ,'addwatchBook']);
 Route::middleware('auth:api')->get('/award/{id}', [ProgressController::class ,'Award']);
 Route::middleware('auth:api')->get('/getawards', [ProgressController::class ,'getawards']);
+
+Route::middleware('auth:api')->post('/bookupdate', [BookController::class ,'Update']);

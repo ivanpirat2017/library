@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="{{asset('css/placeholder.css')}}">
 
     </head>
-    <body oncontextmenu="return false;">
+    <body  >
         <div  id="app">
         </div>
         <script src="{{asset('js/bootstrap.js')}}"></script>

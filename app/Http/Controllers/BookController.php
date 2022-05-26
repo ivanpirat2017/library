@@ -28,7 +28,7 @@ class BookController extends Controller
                 ->rightJoin('genres', 'books.genre_book_id', '=', 'genres.id')
                 ->rightJoin('book_status', 'books.book_status_id', '=', 'book_status.id')
                 ->orWhere('genres.genrename', 'like', '%' . $search . '%')
-                ->select('books.id', 'books.title', 'books.bookimg', 'books.reting', 'books.author', 'books.release', 'genres.genre', 'book_status.status')->orderBy('id', 'desc')->limit(100)->get();
+                ->select('books.id', 'books.title', 'books.bookimg', 'books.reting', 'books.author', 'books.release', 'genres.genrename', 'book_status.status')->orderBy('id', 'desc')->limit(100)->get();
             return response()->json(['data' => $books, 200]);
         }
 
@@ -47,7 +47,7 @@ class BookController extends Controller
 
     function creategenre(Request $request)
     {
-        if (!Auth::user()->role == 'admin') {
+        if (!Auth::user()->user->role == 'admin') {
             return response()->json([
                 'error' => [
                     'code' => 401,
@@ -68,7 +68,7 @@ class BookController extends Controller
 
     function createstatus(Request $request)
     {
-        if (!Auth::user()->role == 'admin') {
+        if (!Auth::user()->user->role == 'admin') {
             return response()->json([
                 'error' => [
                     'code' => 401,
@@ -91,7 +91,7 @@ class BookController extends Controller
         $status = DB::table('book_status')->get();
         return response()->json(['data' => $status], 200);
     }
-    function getbookid($genre, $bookid)
+    function getbookid($bookid)
     {
 
         return response()->json([
@@ -102,7 +102,7 @@ class BookController extends Controller
 
     function createbook(Request $request)
     {
-        if (!Auth::user()->role == 'admin') {
+        if (!Auth::user()->user->role == 'admin') {
             return response()->json([
                 'error' => [
                     'code' => 401,
@@ -170,7 +170,7 @@ class BookController extends Controller
 
     function DeleteBooks($id)
     {
-        if (!Auth::user()->role == 'admin') {
+        if (!Auth::user()->user->role == 'admin') {
             return response()->json([
                 'error' => [
                     'code' => 401,
@@ -183,7 +183,22 @@ class BookController extends Controller
     }
 
 
+    public function Update(Request $request)
+    {
 
+        if (request()->hasFile('bookimg')) {
+            $request->bookimg = $request->bookimg ? $request->file('bookimg')->store('public/images')   : null;
+        } else {
+            $request->bookimg  = null;
+        }
+        if (request()->hasFile('bookurl')) {
+            $request->bookurl = $request->bookurl ?    $request->file('bookurl')->store('public/path') : null;
+        } else {
+            $request->bookurl  = null;
+        }
+        Book::where('id', '=', $request->id)->first()->edit($request);
+        return response()->json(null, 204);
+    }
 
 
 

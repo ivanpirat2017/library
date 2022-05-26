@@ -22,7 +22,7 @@ class Book extends Model
         "price_book",
 
     ];
-    
+
     protected $with = [
         'grtStatus', 'getGenre'
     ];
@@ -33,5 +33,19 @@ class Book extends Model
     public function getGenre()
     {
         return  $this->hasOne(Genre::class, 'id', 'genre_book_id');
+    }
+
+    public function edit($request)
+    {
+        $request->title ?  $this->title = $request->title : null;
+        $request->author ? $this->author = $request->author : null;
+        $request->description ? $this->description = $request->description : null;
+        $request->genre_book_id ? $this->genre_book_id = $request->genre_book_id : null;
+
+        $request->book_status_id ? $this->book_status_id = $request->book_status_id : null;
+        $request->bookimg ? $this->bookimg = $request->bookimg : null;
+        $request->reting ? $this->reting = $request->reting : null;
+        $request->release ? $this->release = $request->release : null;
+        $this->save();
     }
 }

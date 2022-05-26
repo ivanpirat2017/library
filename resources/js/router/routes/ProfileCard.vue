@@ -98,8 +98,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 d-flex-wrap-gap">
-                                    <button class="btn  " @click="updatedProfil()">
-                                        <img src="../../../static/img/floppy-disk.png" height="40" />
+                                    <button class="btn  btn-primary " @click="updatedProfil()">
+                                      сохранить
                                     </button>
                                 </div>
                             </div>

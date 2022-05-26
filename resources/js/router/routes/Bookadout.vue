@@ -150,7 +150,6 @@ export default {
             watchbook: 0,
             textcomet: "",
             checkComment: 1,
-            bookGanre: this.$route.params.ganre,
             bookId: this.$route.params.id,
             startext: null,
             img: "",
@@ -175,7 +174,7 @@ export default {
         }, 5000);
 
         this.getcomment();
-        getApi(GET_GENRE_BOOK_ID + this.bookGanre + "/" + this.bookId).then((r) => {
+        getApi(GET_GENRE_BOOK_ID   + this.bookId).then((r) => {
             this.bookinfo = r.data;
             this.loadingBool = false;
             this.img = this.bookinfo.bookimg
