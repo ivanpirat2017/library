@@ -70,6 +70,8 @@ Route::middleware('auth:api')->get('/getawards', [ProgressController::class ,'ge
 Route::middleware('auth:api')->post('/bookupdate', [BookController::class ,'Update']);
 
 
+Route::get('/readbook/{id}', [BookController::class ,'read']);
+
 
 Route::get('/emd', [EmailController::class ,'sendEmail']);
 

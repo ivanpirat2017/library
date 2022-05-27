@@ -25,6 +25,9 @@ import { authCheck, authAdminCheck } from "../api-routes";
 import Collections from './routes/Collections.vue'
 import CheckEmail from './routes/Email.vue'
 import Token from './routes/Token.vue'
+import Read from './routes/Read.vue'
+
+
 import Authgenreratetoken from './routes/Authgenreratetoken.vue'
 
 const routes = [
@@ -49,6 +52,11 @@ const routes = [
                 component: Home,
             },
             {
+                path: "read/:id",
+                name: "Read",
+                component: Read,
+            },
+            {
                 path: "Bookadout/:ganre/:id",
                 name: "Bookadout",
                 component: Bookadout,
@@ -62,7 +70,7 @@ const routes = [
                 path: "checkemail",
                 name: "CheckEmail",
                 component: CheckEmail,
-                
+
             },
             {
                 path: "search",

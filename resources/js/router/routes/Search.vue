@@ -89,7 +89,7 @@ export default {
 </script>
 <style lang='scss' scoped >
 main{
-    height: 100%;
+   margin-bottom: auto;
 }
 .book_genres_content {
     padding-bottom: 40px;

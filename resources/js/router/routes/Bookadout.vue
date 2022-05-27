@@ -19,19 +19,25 @@
                 <p class="date">Дата написания: {{ bookinfo.release }}</p>
                 <p class="status">Статус книги: {{ bookinfo.status }}</p>
                 <p class="status">Книгу просмотрели : {{ watchbook }} раз</p>
-                <button class="book_button_grean btn" v-if="auth" @click="download()">
-                    скачать
-                </button>
-                <button class="btn-warning btn" v-else @click="$router.push('/login')">
-                    для скачивания нужна авторизация
-                </button>
+                <div class="">
+                    <button class="book_button_grean btn" v-if="auth" @click="download()">
+                        скачать
+                    </button>
+                    <button class="btn-warning btn" v-else @click="$router.push('/login')">
+                        для скачивания нужна авторизация
+                    </button>
+                    <button class="btn-dark btn" v-if="auth" @click="$router.push('/read/' + bookinfo.id)">
+                        Читать книгу
+                    </button>
+                    <img :src="startext" alt="" height="30" @click="btnclickstar()" class="FavoritesImg-adout" />
+                </div>
 
-
-                <img :src="startext" alt="" height="30" @click="btnclickstar()" class="FavoritesImg" />
                 <p>
                     Чат (alpha)
                     <router-link :to="'/chatbook/' + bookId">открыть</router-link>
                 </p>
+
+
             </div>
         </div>
 
@@ -174,7 +180,7 @@ export default {
         }, 5000);
 
         this.getcomment();
-        getApi(GET_GENRE_BOOK_ID   + this.bookId).then((r) => {
+        getApi(GET_GENRE_BOOK_ID + this.bookId).then((r) => {
             this.bookinfo = r.data;
             this.loadingBool = false;
             this.img = this.bookinfo.bookimg
@@ -247,6 +253,12 @@ export default {
 };
 </script>
 <style  lang='scss'>
+.FavoritesImg-adout {
+    opacity: 0.85;
+
+    cursor: pointer;
+}
+
 .logo_user {
     display: flex;
     flex-shrink: 0;
@@ -395,6 +407,11 @@ export default {
     }
 
     &_content {
+        div {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
 
         p {
             margin-bottom: 15px;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\URL;
 use App\Http\Resources\BookAboutResource;
 use App\Http\Resources\BookPreviewPaginateResource;
 use App\Http\Resources\BookPreviewPaginResource;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Undefined;
+use ZipArchive;
 
 class BookController extends Controller
 {
@@ -165,7 +167,16 @@ class BookController extends Controller
         }
         return Storage::download($book->bookurl);
     }
-
+    function read($id)
+    {
+        $book = DB::table('books')->find($id);
+        $zip = new ZipArchive;
+        if ($zip->open('./storage/' . $book->bookurl) === TRUE) {
+            return response()->json(mb_convert_encoding($zip->getFromIndex(0), "utf-8", "windows-1251"), 200);
+        } else {
+            echo 'ошибка';
+        }
+    }
 
 
     function DeleteBooks($id)
