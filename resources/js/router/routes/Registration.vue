@@ -33,22 +33,8 @@
                     <div class="alert alert-danger" v-if="error.email != null" role="alert">
                         {{ error.email[0] }}
                     </div>
-                    <h4>email</h4>
+                    <h4>Email</h4>
                     <input type="text" name="login" v-model="email" id="login" />
-                </div>
-                <div class="item">
-                    <div class="alert alert-danger" v-if="error.password != null" role="alert">
-                        {{ error.password[0] }}
-                    </div>
-                    <h4>Пароль</h4>
-                    <input type="password" name="password" v-model="password" id="password" />
-                </div>
-                <div class="item">
-                    <div class="alert alert-danger" v-if="boolpassword" role="alert">
-                        Пароль введен неверно
-                    </div>
-                    <h4>Повтрите пароль</h4>
-                    <input type="password" name="password2" v-model="password2" id="password2" />
                 </div>
                 <div class="itembtn">
                     <button class="btn book_button_grean loginbtn" @click="Reg()">
@@ -76,8 +62,6 @@ export default {
     data() {
         return {
             login: "",
-            password: "",
-            password2: "",
             error: {},
             first_name: "",
             last_name: "",
@@ -92,25 +76,20 @@ export default {
     },
     methods: {
         Reg() {
-            if (this.password != this.password2) {
-                this.boolpassword = true;
-                console.log("errr");
-                return;
-            }
             this.boolpassword = false;
             const form = new FormData();
             form.append("first_name", this.first_name);
             form.append("last_name", this.last_name);
             form.append("patronymic", this.patronymic);
+            form.append("browser", navigator.userAgent.toLowerCase());
             form.append("email", this.email);
-            form.append("password", this.password);
             fetch(REGISTER, {
                 method: "POST",
                 body: form,
             })
                 .then((r) => {
                     if (r.status == 204) {
-                        this.$router.push("/login");
+                        this.$router.push('/checkemail')
                     } else {
                         return r.json();
                     }

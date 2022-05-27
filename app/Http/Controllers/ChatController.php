@@ -16,6 +16,7 @@ class ChatController extends Controller
             'book_id' => $request->book_id,
             'messages' => $request->messages,
             'del' => false,
+            'date'=>date("Y-m-d H:i:s")
         ]);
         return response()->json(null, 204);
     }
@@ -23,7 +24,7 @@ class ChatController extends Controller
     {
         $messages = DB::table('chat_books')->rightJoin('users', 'chat_books.user_id', '=', 'users.id')
             ->where('chat_books.book_id', '=', $id)
-            ->select('chat_books.id', 'chat_books.book_id','chat_books.id', 'chat_books.messages', 'users.first_name', 'users.id', 'users.last_name', 'chat_books.created_at')->orderBy('chat_books.id')->limit(100)->get();
+            ->select('chat_books.id', 'chat_books.book_id','chat_books.id', 'chat_books.messages', 'chat_books.date','users.first_name', 'users.id', 'users.last_name', 'chat_books.created_at')->orderBy('chat_books.id')->limit(100)->get();
         return response()->json(['data' => $messages,'author'=>Auth::user()->user_token_id], 200);
     }
 }

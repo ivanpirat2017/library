@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ParserController;
 use App\Http\Controllers\ProgressController;
 use App\Http\Controllers\WatchBookController;
@@ -67,3 +68,11 @@ Route::middleware('auth:api')->get('/award/{id}', [ProgressController::class ,'A
 Route::middleware('auth:api')->get('/getawards', [ProgressController::class ,'getawards']);
 
 Route::middleware('auth:api')->post('/bookupdate', [BookController::class ,'Update']);
+
+
+
+Route::get('/emd', [EmailController::class ,'sendEmail']);
+
+
+
+Route::get('/sdfvsdfdsvfdscfdsvfsdvfdvfvdsfsds/{id}', [AuthController::class ,'verification']);

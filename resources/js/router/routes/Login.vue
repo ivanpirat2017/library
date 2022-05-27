@@ -11,13 +11,6 @@
                     <h4>email</h4>
                     <input type="text" name="login" data-mask="(999) 999-9999" v-model="login" id="login" />
                 </div>
-                <div class="item">
-                    <div class="alert alert-danger" v-if="error.password != null" role="alert">
-                        {{ error.password[0] }}
-                    </div>
-                    <h4>password</h4>
-                    <input type="password" name="password" v-model="password" id="password" />
-                </div>
                 <div class="itembtn">
                     <button class="btn book_button_grean loginbtn" @click="getToken()">
                         Войти
@@ -44,9 +37,9 @@ export default {
     data() {
         return {
             login: "",
-            password: "",
             error: {},
             loadingBool: true,
+            check: false
         };
     },
     mounted() {
@@ -54,25 +47,31 @@ export default {
     },
     methods: {
         getToken() {
- 
+            if (this.check) {
+                return 0;
+            }
+            this.check = true
             const form = new FormData();
             form.append("email", this.login);
-            form.append("password", this.password);
             form.append("browser", navigator.userAgent.toLowerCase());
             fetch(LOGIN, {
                 method: "POST",
                 body: form,
             })
-                .then((r) => r.json())
                 .then((r) => {
-                    console.log(r);
-                    if (r.data != null) {
-                        localStorage.setItem("token", r.data.token);
-                        this.$router.push("/profile");
+                    if (r.status == 204) {
+                        this.$router.push('/checkemail')
+                    } else {
+                        return r.json();
                     }
+
+                })
+                .then((r) => {
                     if (r.error != null) {
                         this.error = r.error;
                     }
+                }).finally(r => {
+                    this.check = false
                 });
         },
     },

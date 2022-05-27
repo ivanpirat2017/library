@@ -14,9 +14,6 @@
             <router-link class="  " :to="'/profile/token'" :class="{ active_menu: $route.name == 'Token' }">
                 <img src="../../../static/img/responsive.png" height="55" />
             </router-link>
-            <router-link class="  " :to="'/profile/secure'" :class="{ active_menu: $route.name == 'Secure' }">
-                <img src="../../../static/img/shield.png" height="55" />
-            </router-link>
             <router-link class="  " :to="'/profile/mycard'" :class="{ active_menu: $route.name == 'MyCard' }">
                 <img src="../../../static/img/id-card.png" height="55" />
             </router-link>

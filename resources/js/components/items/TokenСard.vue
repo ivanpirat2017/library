@@ -2,7 +2,7 @@
     <div class="TokenСard bg-dark">
         <div class="TokenСardImgs">
             <img :src="TokenСard" alt="" :key="Math.random() * 100">
-            <img :src="deviceimg" :key="Math.random() * 100" alt="">
+            <img :src="deviceimg"  v-if="deviceimg!=0" :key="Math.random() * 100" alt="">
         </div>
 
         <div class="imgwhate"></div>
@@ -56,7 +56,7 @@ export default {
     },
     computed: {
         deviceimg() {
-            const devices =this.item.browser;
+            const devices =this.item.browser??' ';
             if (devices.search("iphone") > -1) {
                 return ios;
             }
@@ -72,6 +72,7 @@ export default {
             if (devices.search("mac os") > -1) {
                 return mac;
             }
+              return 0;
         },
         TokenСard() {
             return this.item.flagimg != '' ? this.item.flagimg : imgsab

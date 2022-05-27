@@ -187,7 +187,6 @@ export default {
             await formdata.append("first_name", this.first_name);
             await formdata.append("last_name", this.last_name);
             await formdata.append("patronymic", this.patronymic);
-            await formdata.append("email", this.email);
             await formdata.append("about_information", editihtext.textContent);
             await formdata.append("avatar", avatar.files[0]);
             await formdata.append("about_img", aboutimg.files[0]);

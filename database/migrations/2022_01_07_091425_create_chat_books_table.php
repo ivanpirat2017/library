@@ -17,7 +17,8 @@ class CreateChatBooksTable extends Migration
             $table->id();
             $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->string('messages');
+            $table->text('messages');
+            $table->string('date');
             $table->boolean('del')->nullable()->default(false);
             $table->timestamps();
         });

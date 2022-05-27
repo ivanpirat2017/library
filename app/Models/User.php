@@ -23,12 +23,14 @@ class User extends Authenticatable
         'last_name',
         'patronymic',
         'email',
-        'password',
+        'verification',
         'avatar',
         'about_img',
         'role',
         'about_title',
         'about_information',
+        'verificationkey',
+        'verification'
     ];
 
     function  getAdminBool()

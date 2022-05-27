@@ -7,7 +7,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -16,7 +18,6 @@ class AuthController extends Controller
     {
         $valide = Validator::make($request->all(), [
             'email' => 'required|max:100|email',
-            'password' => 'required|max:100'
         ]);
         if ($valide->fails()) {
             return  response()->json([
@@ -24,37 +25,29 @@ class AuthController extends Controller
             ], 422);
         }
         if ($user = User::where('email', '=', $request->email)->first()) {
-            if (Hash::check($request->password, $user->password)) {
-               $ipdata = getpi($request->ip());
-                $rand = Str::random(64);
-                $token = Token::create([
-                    'user_token_id' => $user->id,
-                    'api_token' =>   $rand,
-                    'browser'=>$request->browser,
-                    'ip' => $ipdata->ip ?? '',
-                    'type' => $ipdata->type ?? '',
-                    'continent' => $ipdata->continent ?? '',
-                    'country' => $ipdata->country ?? '',
-                    'city' => $ipdata->city ?? '',
-                    'latitude' => $ipdata->latitude ?? '',
-                    'longitude' => $ipdata->longitude ?? '',
-                    'postal' => $ipdata->postal ?? '',
-                    'flagimg' => $ipdata->flag->img ?? '',
-                    'del' => false,
-                ]);
-                return  response()->json([
-                    'data' => [
-                        'token' => $token->api_token
-                    ]
-                ], 200);
+            if ($user->verification) {
+                Mail::send('sendemail', ['userid' => $user->id, 'request' => $request], function ($message) use ($request) {
+                    $message->to($request->email, 'Ivan')->subject('Ваш ключ авторизации');
+                    $message->from('libraru@kursk-library.ru', 'libraru');
+                });
+                return  response()->json(null, 204);
             }
+            return response()->json([
+                'error' => [
+                    'code' => 401,
+                    'message' => 'Unauthorized',
+                    'email' => [
+                        'email  не подтвержден',
+                    ]
+                ]
+            ], 401);
         }
         return response()->json([
             'error' => [
                 'code' => 401,
                 'message' => 'Unauthorized',
                 'email' => [
-                    'email or password incorrect',
+                    'email  incorrect',
                 ]
             ]
         ], 401);
@@ -65,21 +58,25 @@ class AuthController extends Controller
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'patronymic' => 'required|max:100',
-            'email' => 'required|max:100|email|unique:users',
-            'password' => 'required|max:100'
+            'email' => 'required|max:100|email',
         ]);
         if ($valide->fails()) {
             return  response()->json([
                 'error' => $valide->errors()
             ], 422);
         }
-        $request['password'] = Hash::make($request->password);
         $userNull = User::all()->count();
-
         if ($userNull == 0) {
             $request['role'] = 'admin';
         }
-        User::create($request->all());
+
+        User::where('email', '=', $request->email)->where('verification', '=', null)->delete();
+        $userid =  User::create($request->all());
+
+        Mail::send('authreg', ['userid' => $userid->id, 'request' => $request], function ($message) use ($request) {
+            $message->to($request->email, 'Ivan')->subject('Подтвердите Email');
+            $message->from('libraru@kursk-library.ru', 'libraru');
+        });
         return  response()->json(null, 204);
     }
     function authCheck()
@@ -114,6 +111,34 @@ class AuthController extends Controller
     public function getTokens()
     {
         return  response()->json(['data' => Token::where('user_token_id', '=', Auth::user()->user_token_id)->where('del', '=', false)->get()], 200);
+    }
+
+    public function verification(Request $request, $id)
+    {
+        $user = User::where('verificationkey', '=', $id)->first();
+        if ($user) {
+            $user->verification = true;
+            $user->save();
+            $ipdata = getpi($request->ip());
+            $rand = Str::random(64);
+            Token::create([
+                'user_token_id' => $user->id,
+                'api_token' => $rand,
+                'browser' => '',
+                'ip' => $ipdata->ip ?? '',
+                'type' => $ipdata->type ?? '',
+                'continent' => $ipdata->continent ?? '',
+                'country' => $ipdata->country ?? '',
+                'city' => $ipdata->city ?? '',
+                'latitude' => $ipdata->latitude ?? '',
+                'longitude' => $ipdata->longitude ?? '',
+                'postal' => $ipdata->postal ?? '',
+                'flagimg' => $ipdata->flag->img ?? '',
+                'del' => false,
+            ]);
+            return Redirect::to(URL::to('/authgenreratetoken/' . $rand));
+        }
+        return  'ошибка';
     }
 }
 function getpi($ip)

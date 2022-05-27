@@ -23,15 +23,20 @@ import SearchEdit from './routes/admin/SearchBookAdmin.vue'
 import BookAboutAdmin from './routes/admin/BookAboutAdmin.vue'
 import { authCheck, authAdminCheck } from "../api-routes";
 import Collections from './routes/Collections.vue'
-import Secure from './routes/Secure.vue'
+import CheckEmail from './routes/Email.vue'
 import Token from './routes/Token.vue'
-
+import Authgenreratetoken from './routes/Authgenreratetoken.vue'
 
 const routes = [
     {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: NotFound,
+    },
+    {
+        path: '/authgenreratetoken/:id',
+        name: 'Authgenreratetoken',
+        component: Authgenreratetoken,
     },
     {
         path: "/",
@@ -52,6 +57,12 @@ const routes = [
                 path: "favourites",
                 name: "Favourites",
                 component: Favourites,
+            },
+            {
+                path: "checkemail",
+                name: "CheckEmail",
+                component: CheckEmail,
+                
             },
             {
                 path: "search",
@@ -112,14 +123,7 @@ const routes = [
                             name: 'profile'
                         },
                     },
-                    {
-                        path: "secure",
-                        name: "Secure",
-                        component: Secure,
-                        meta: {
-                            name: 'profile'
-                        },
-                    },
+
                     {
                         path: "token",
                         name: "Token",

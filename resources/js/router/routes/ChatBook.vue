@@ -150,14 +150,16 @@ $height-send: 80px;
 
     img {
         height: 60%;
-    padding: 15px;
+        padding: 15px;
+
         @media (max-width: 700px) {
             height: 40%;
         }
     }
-    h2{
-         @media (max-width: 700px) {
-           font-size: 1.2rem;
+
+    h2 {
+        @media (max-width: 700px) {
+            font-size: 1.2rem;
         }
     }
 }
@@ -287,6 +289,7 @@ $height-send: 80px;
                 border-radius: 5px 0 0 5px;
                 min-height: 50px;
                 margin: 0;
+                width: calc(100% - 100px);
 
                 &:focus {
                     border: 3px solid #1e5945;
@@ -328,14 +331,16 @@ $height-send: 80px;
                 h3 {
                     font-size: 0.9rem;
                 }
+                 h5 {
+                    font-size: 0.7rem;
+                }
             }
 
             p {
                 margin: 0;
                 padding: 5px;
                 font-size: 0.8rem;
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 10px;
+
                 font-family: "mr";
             }
         }
@@ -343,16 +348,24 @@ $height-send: 80px;
 }
 
 .rmesege {
-    background: rgba(56, 28, 218, 0.8);
+    background: #ff8c00;
     max-width: 70%;
-    box-shadow: 0 0 10px rgba(7, 7, 66, 0.7);
     position: relative;
+
+    @media (max-width: 600px) {
+        max-width: 90%;
+    }
 }
 
 .lmesege {
-    background: rgba(247, 0, 0, 0.8);
+    background: #225c49;
     max-width: 70%;
-    box-shadow: 0 0 10px rgba(255, 52, 52, 0.7);
     position: relative;
+
+    @media (max-width: 600px) {
+        max-width: 90%;
+    }
+
+
 }
 </style>

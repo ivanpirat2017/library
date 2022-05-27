@@ -1,3 +1,5 @@
+
+
 .search {
     background: url(../static/img/folige.jpg);
     padding-bottom: 70px;
@@ -20,34 +22,35 @@
 .search .search_content .search_content h4 {
     color: white;
 }
-
 .inputsearch {
     margin-top: 15px;
     display: flex;
     align-items: center;
+    height: 50px;
+    overflow: hidden;
 
     button {
         border: none;
         background: none;
         font-size: 1.1rem;
         cursor: pointer;
-        height: 44px;
+        height: 100%;
         border-radius: 0 5px 5px 0;
-        background: rgb(230, 82, 14);
-        padding: 4px 25px;
+        background: #e6520e;
+        padding: 4px 42px;
         color: white;
+        margin: 0;
     }
 
     input {
-        border: none;
-        background: none;
         width: 600px;
-        height: 40px;
+        height: 100%;
         border-radius: 5px 0 0 5px;
-        border: white 2px solid;
-        outline: none;
+        border: white solid 2px;
         color: white;
         padding: 0 5px;
+        background: #ffffff1f;
+        transition: 0.4s;
 
         &::placeholder {
             font-family: 'ml';
