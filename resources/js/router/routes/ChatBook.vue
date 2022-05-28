@@ -260,7 +260,6 @@ $height-send: 80px;
 
         @media (max-width: 700px) {
             padding-top: 100px;
-            max-height: calc(100% - 60px);
         }
 
         &Push {
@@ -274,11 +273,8 @@ $height-send: 80px;
             @media (max-width: 700px) {
                 padding: 10px 1%;
                 padding-top: 0;
-                position: fixed;
                 margin: 0;
-                bottom: 55px;
                 width: 100%;
-                left: 0;
                 z-index: 3;
                 background: rgba(255, 255, 255, 1);
             }

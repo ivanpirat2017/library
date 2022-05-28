@@ -52,6 +52,9 @@
         <div class="alert alert-danger" role="alert" v-if="errr">
             Введите более 10 символов
         </div>
+        <div class="alert alert-danger" role="alert" v-if="errrDubl">
+            Вы уже написали комментарий
+        </div>
         <div class="adout_book_text_edit" v-if="auth">
             <div class="adout_book_text_edit_content">
                 <div contenteditable class="editcomment"></div>
@@ -163,6 +166,7 @@ export default {
             loadingBool: true,
             update: false,
             errr: false,
+            errrDubl: false,
             infopanel: localStorage.getItem("infopanel"),
         };
     },
@@ -224,13 +228,22 @@ export default {
                         Authorization: "Bearer " + localStorage.getItem("token"),
                     },
                 }).then((r) => {
-                    editcomment.textContent = "";
-                    this.getcomment();
-                    this.update = true;
-                    setTimeout(() => {
-                        this.update = false;
-                    }, 3000);
-                });
+                    if (r.status == 204) {
+                        editcomment.textContent = "";
+                        this.getcomment();
+                        this.update = true;
+                        setTimeout(() => {
+                            this.update = false;
+                        }, 3000);
+                    }
+                    if (r.status == 422) {
+                        this.errrDubl = true;
+                        setTimeout(() => {
+                            this.errrDubl = false;
+                        }, 3000);
+
+                    }
+                })
             }
         },
         getcomment() {

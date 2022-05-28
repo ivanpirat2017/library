@@ -72,9 +72,4 @@ Route::middleware('auth:api')->post('/bookupdate', [BookController::class ,'Upda
 
 Route::get('/readbook/{id}', [BookController::class ,'read']);
 
-
-Route::get('/emd', [EmailController::class ,'sendEmail']);
-
-
-
 Route::get('/sdfvsdfdsvfdscfdsvfsdvfdvfvdsfsds/{id}', [AuthController::class ,'verification']);

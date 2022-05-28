@@ -47,19 +47,26 @@ class AuthController extends Controller
                 'code' => 401,
                 'message' => 'Unauthorized',
                 'email' => [
-                    'email  incorrect',
+                    'Email некорректен',
                 ]
             ]
         ], 401);
     }
     function reg(Request $request)
     {
+        $messages = [
+            'first_name' => 'имя',
+            'last_name' => 'фамилия',
+            'patronymic' => 'отчество',
+            'email' => 'email',
+        ];
         $valide = Validator::make($request->all(), [
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'patronymic' => 'required|max:100',
             'email' => 'required|max:100|email',
         ]);
+        $valide->setAttributeNames($messages);
         if ($valide->fails()) {
             return  response()->json([
                 'error' => $valide->errors()

@@ -4,6 +4,9 @@
         <div class="logincentr">
             <div class="login">
                 <h2 style="font-size: 36px">Вход</h2>
+                <div class="alert alert-warning" role="alert" v-if="loadingFetch">
+                    идет проверка данных, пожалуйста дождитесь ответа!
+                </div>
                 <div class="item">
                     <div class="alert alert-danger" v-if="error.email != null" role="alert">
                         {{ error.email[0] }}
@@ -39,7 +42,8 @@ export default {
             login: "",
             error: {},
             loadingBool: true,
-            check: false
+            check: false,
+            loadingFetch: false
         };
     },
     mounted() {
@@ -54,6 +58,7 @@ export default {
             const form = new FormData();
             form.append("email", this.login);
             form.append("browser", navigator.userAgent.toLowerCase());
+            this.loadingFetch = true
             fetch(LOGIN, {
                 method: "POST",
                 body: form,
@@ -72,6 +77,7 @@ export default {
                     }
                 }).finally(r => {
                     this.check = false
+                    this.loadingFetch = false
                 });
         },
     },

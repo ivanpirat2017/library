@@ -4,7 +4,9 @@
         <div class="logincentr">
             <div class="login">
                 <h2 style="font-size: 36px">Регистрация</h2>
-
+                <div class="alert alert-warning" role="alert" v-if="loadingFetch">
+                    идет проверка данных, пожалуйста дождитесь ответа!
+                </div>
                 <div class="item">
                     <div class="alert alert-danger" v-if="error.last_name != null" role="alert">
                         {{ error.last_name[0] }}
@@ -69,6 +71,8 @@ export default {
             email: "",
             boolpassword: false,
             loadingBool: true,
+            loadingFetch: false
+
         };
     },
     mounted() {
@@ -83,6 +87,7 @@ export default {
             form.append("patronymic", this.patronymic);
             form.append("browser", navigator.userAgent.toLowerCase());
             form.append("email", this.email);
+            this.loadingFetch = true
             fetch(REGISTER, {
                 method: "POST",
                 body: form,
@@ -98,7 +103,9 @@ export default {
                     if (r.error != null) {
                         this.error = r.error;
                     }
-                });
+                }).finally(r => {
+                    this.loadingFetch = false
+                });;
         },
     },
 };

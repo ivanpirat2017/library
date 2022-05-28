@@ -8,8 +8,7 @@
                 <div class="books bookfavourite" @click="getBook()">
                     <Book :item="item" v-for=" item   in books" :key="item.id" />
                 </div>
-                <h2 class="  infofavourite" :class="{'t-pt-35':books.length!=0}">{{ countBook }} <img class="not_search_bad" height="60" v-if="books.length == 0"
-                        src="../../../static/img/sad.png" alt="" srcset="" /></h2>
+                <h2 class="  infofavourite" :class="{ 't-pt-35': books.length != 0 }">{{ countBook }}  </h2>
 
                 <InformativeWindow :dell="dellCart" v-if="books.length > 1" />
                 <button v-if="books.length > 0" type="button" @click="dellCart()" class="btn btn-danger m-r-b">
@@ -82,5 +81,10 @@ export default {
 };
 </script>
 <style   scoped>
+.not_searchbook_bad {
+    width: 50px;
+
+
+}
 </style>
 

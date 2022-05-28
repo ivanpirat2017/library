@@ -12,6 +12,7 @@ class CollectionController extends Controller
 {
     function creatrCollection(Request $request)
     {
+        
         Collection::create([
             'users_id' => Auth::user()->user_token_id,
             'namecollection' => $request->namecollection,

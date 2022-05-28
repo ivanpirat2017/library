@@ -19,25 +19,20 @@
                         <div class="d-flex align-items-center ">
                             <div>
                                 <h3 v-if="books.length != 0">Результаты поиска</h3>
-                                <h5 class="searcbookText">
+                                <h5 class="searchbookText">
                                     По запросу <b>{{ $route.query.query }}</b>, {{ countBook }}.
                                     <img class="not_searchbook_bad" v-if="books.length == 0"
                                         src="../../../static/img/sad.png" />
                                 </h5>
                             </div>
                         </div>
-
                         <div class="books searcbook  ">
-
                             <Book :item="item" v-for="(item ) in books" :key="item.id" />
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </main>
 </template>
 <script>
@@ -88,15 +83,16 @@ export default {
 };
 </script>
 <style lang='scss' scoped >
-main{
-   margin-bottom: auto;
+main {
+    margin-bottom: auto;
 }
+
 .book_genres_content {
     padding-bottom: 40px;
 }
 
 .not_searchbook_bad {
-    width: 70px;
+    width: 50px;
 
 
 }
@@ -104,6 +100,12 @@ main{
 .searchbook {
 
     padding-bottom: 70px;
+
+    &Text {
+        font-size: 1rem;
+
+
+    }
 
     &_content {
 

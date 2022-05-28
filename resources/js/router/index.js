@@ -55,6 +55,9 @@ const routes = [
                 path: "read/:id",
                 name: "Read",
                 component: Read,
+                meta: {
+                    name: 'profile'
+                },
             },
             {
                 path: "Bookadout/:ganre/:id",
@@ -233,7 +236,7 @@ router.beforeEach(async (to, from) => {
             }
         })
     }
-    if (to.fullPath == '/login' || to.fullPath == '/registration') {
+    if (to.fullPath == '/login' || to.fullPath == '/registration' || to.fullPath == '/checkemail') {
         return await authCheck().then(r => {
             if (r.status == 200) {
                 return '/profile'

@@ -172,7 +172,7 @@ class BookController extends Controller
         $book = DB::table('books')->find($id);
         $zip = new ZipArchive;
         if ($zip->open('./storage/' . $book->bookurl) === TRUE) {
-            return response()->json(mb_convert_encoding($zip->getFromIndex(0), "utf-8", "windows-1251"), 200);
+            return response()->json(['data' => mb_convert_encoding($zip->getFromIndex(0), "utf-8", "windows-1251")], 200);
         } else {
             echo 'ошибка';
         }

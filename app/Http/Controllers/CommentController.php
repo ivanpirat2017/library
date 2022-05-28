@@ -12,12 +12,15 @@ class CommentController extends Controller
 {
     function addcoment(Request $request)
     {
+        if (DB::table('comments')->where('user_comment_id', '=', Auth::user()->user_token_id)->where('book_comment_id', '=', $request->book_comment_id)->count() != 0) {
+            return response()->json(['error' => 'Вы уже  оставили коментарий'], 422);
+        }
         DB::table('comments')->insert([
             'user_comment_id' => Auth::user()->user_token_id,
             'book_comment_id' => $request->book_comment_id,
             'message' => $request->message,
         ]);
-        return response()->json(null, 200);
+        return response()->json(null, 204);
     }
 
     function getcommentbook($bookid)

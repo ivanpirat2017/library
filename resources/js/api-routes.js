@@ -13,8 +13,8 @@ export const GET_GENRE = url + '/getgenre/';
 
 export const GET_AWARD = url + '/award/';
 
-export const  GET_AWARDS = url + '/getawards';
-export const  READ_BOOK = url + '/readbook/';
+export const GET_AWARDS = url + '/getawards';
+export const READ_BOOK = url + '/readbook/';
 
 
 export const GET_GENRE_BOOK_ID = url + '/getbookid/';
@@ -51,18 +51,18 @@ export const CREATE_GENRE = url + '/creategenre';
 export const CREATE_STARUS = url + '/createstatus';
 export const GET_STARUSES = url + '/getstatus';
 export const GET_BOOK_PARSER = url + '/getbookparser';
-export const CREATE_ACTION= url + '/createaction';
+export const CREATE_ACTION = url + '/createaction';
 
-export const ADD_WATCH_BOOK= url + '/addwatchbook/';
+export const ADD_WATCH_BOOK = url + '/addwatchbook/';
 
-export const DOUMLONDDOOK= url + '/doumlonddook/';
+export const DOUMLONDDOOK = url + '/doumlonddook/';
 
-export const ADD_MESSAGE= url + '/addmessage';
-export const GET_MESSAGES= url + '/getmessages/';
+export const ADD_MESSAGE = url + '/addmessage';
+export const GET_MESSAGES = url + '/getmessages/';
 
 
-export const GET_COMMENT_ADMIN= url + '/getcommentadmin/';
-export const UPDATA_COMMENT_ADMIN= url + '/updatacommentadmin';
+export const GET_COMMENT_ADMIN = url + '/getcommentadmin/';
+export const UPDATA_COMMENT_ADMIN = url + '/updatacommentadmin';
 export async function authCheck() {
     return await fetch(AUTH_CHECK, {
         method: 'GET',
@@ -83,7 +83,9 @@ export async function authAdminCheck() {
 
 
 
-export async function getApi(url, obj = { method: "GET" }) {
+export async function getApi(url, obj = {
+    method: "GET",
+}) {
     const data = await fetch(url, obj).then(r => r.json()).then(r => { return r });
     return data;
 }

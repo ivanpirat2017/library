@@ -1,5 +1,17 @@
 <template>
+    <Placeholder v-if="loadingBool" />
+    <div class="infoReaderror" v-if="error">
+        <h1>Ошибка на сервере или файл поврежден</h1>
+        <button class="btn btn-warning" @click="getBook()">Обновить</button>
+        <button class="btn book_button_grean" @click="$router.back()">Вернуться назад</button>
+    </div>
     <div class="Read m5-l-r">
+
+        <div class="ReadTab "
+            :style="{ 'filter': `invert(${settings.colornum == 0 || settings.colornum == 2 ? 1 : 0})` }">
+            <img src="../../../static/img/nextskider.png" class="   " @click="scrollPage(-1)" alt="" />
+            <img src="../../../static/img/nextskider.png" class="   " @click="scrollPage(1)" alt="" />
+        </div>
         <div class="Readmenu">
             <div>
                 <p>Размер шрифта</p>
@@ -36,12 +48,16 @@
 
             </div>
         </div>
+
         <p v-html="bookpagin" class="ReadText"
             :style="{ 'font-size': settings.fontSize + 'px', 'letter-spacing': settings.letterSpacing + 'px', 'line-height': settings.lineHeight + 'em', 'font-family': settings.fontFamily, 'background': bccolor.bc, 'color': bccolor.color }">
+
+
         </p>
         <div class="Readpage">
-            <button v-for="item in pagecount" @click="settings.selected = item" :key="item"
-                class="btn "  :class="{'btn-primary': settings.selected==item,'book_button_grean': settings.selected!=item}">{{ item }}</button>
+            <button v-for="item in pagecount" @click="selected = item" :key="item" class="btn "
+                :class="{ 'btn-primary': selected == item, 'book_button_grean': selected != item }">{{ item
+                }}</button>
         </div>
 
     </div>
@@ -51,19 +67,25 @@ import {
     getApi,
     READ_BOOK,
 } from "../../api-routes";
+import Placeholder from "../../components/items/Placeholder.vue";
 export default {
+    components: {
+        Placeholder,
+    },
     data() {
         return {
             book: '',
             bookwords: [],
-
+            selected: 1,
+            error: false,
+            loadingBool: true,
             settings: JSON.parse(localStorage.getItem('settingsRead')) ?? {
                 fontSize: 22,
                 letterSpacing: 0,
                 lineHeight: 1.5,
                 fontFamily: 'ml',
                 colornum: 0,
-                selected: 1,
+
                 fullcolor: [
                     { color: '#000', bc: '#ffffff' },
                     { color: '#f0f0f0', bc: ' #1e1e1e' },
@@ -95,7 +117,7 @@ export default {
         },
         bookpagin() {
             const arr = [...this.bookwords]
-            return arr.slice(500* (this.settings.selected-1), 500*this.settings.selected).join(' ').replace(/(\r\n)+/gm, '<br>')
+            return arr.slice(500 * (this.selected - 1) + 1, 500 * this.selected).join(' ').replace(/(\r\n)+/gm, '<br>')
         }
     },
     mounted() {
@@ -103,20 +125,84 @@ export default {
 
     },
     methods: {
+        scrollPage(num) {
+            this.selected += num
+            if (this.pagecount < this.selected) {
+                this.selected = this.pagecount
+            }
+            if (this.selected <= 0) {
+                this.selected = 1
+            }
+        },
         getBook() {
             getApi(READ_BOOK + this.$route.params.id)
                 .then((r) => {
-                    this.bookwords = r.split(" ")
+                    this.bookwords = r.data.split(" ")
+                    this.error = false
                 })
                 .catch((r) => {
-                    this.getBook();
-                });
+                    this.error = true
+                }).finally(r => this.loadingBool = false);
         },
     }
 }
 </script>
 <style lang="scss" scoped>
+.infoReaderror {
+    height: 100vh;
+    width: 100vw;
+    padding: 50px;
+    border-radius: 15px;
+    backdrop-filter: blur(20px);
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 .Read {
+    position: relative;
+
+    &Tab {
+        width: 100%;
+        position: fixed;
+        pointer-events: none;
+        left: 0;
+        top: 80%;
+        display: flex;
+        justify-content: space-between;
+        z-index: 2;
+        padding-left: 5%;
+        padding-right: 5%;
+
+        @media (max-width: 700px) {
+            padding-left: 1%;
+            padding-right: 1%;
+            top: 85%;
+        }
+
+        img {
+            &:nth-child(1) {
+                transform: rotateZ(180deg);
+            }
+
+            &:nth-child(1) {}
+            pointer-events: all;
+            height: 50px;
+            background: rgb(140 140 140 / 20%);
+            padding: 6px;
+            border-radius: 100%;
+            filter: invert(1);
+            opacity: 0.8;
+        }
+    }
+
     &Text {
         padding: 5px;
         border-radius: 5px;

@@ -16,7 +16,7 @@ class ChatController extends Controller
             'book_id' => $request->book_id,
             'messages' => $request->messages,
             'del' => false,
-            'date'=>date("Y-m-d H:i:s")
+            'date'=>date("Y-m-d H:i:s",strtotime('+3 hours'))
         ]);
         return response()->json(null, 204);
     }
