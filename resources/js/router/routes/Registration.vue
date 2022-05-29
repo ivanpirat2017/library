@@ -27,7 +27,7 @@
                     <div class="alert alert-danger" v-if="error.patronymic != null" role="alert">
                         {{ error.patronymic[0] }}
                     </div>
-                    <h4>Отчесво</h4>
+                    <h4>Отчество</h4>
                     <input type="text" name="patronymic" v-model="patronymic" id="patronymic" />
                 </div>
 

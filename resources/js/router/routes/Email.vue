@@ -16,6 +16,8 @@ export default {
     align-items: center;
     flex-direction: column;
     height: 100%;
+    padding: 20px;
+    text-align: center;
     img{
         height: 100px;
     }

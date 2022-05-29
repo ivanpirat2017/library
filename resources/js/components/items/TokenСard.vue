@@ -1,15 +1,13 @@
 <template>
     <div class="TokenСard bg-dark">
         <div class="TokenСardImgs">
-            <img :src="TokenСard" alt="" :key="Math.random() * 100">
+            <img :src="`https://flagcdn.com/${item.flagimg.toLocaleLowerCase()}.svg`"  v-if="item.flagimg.length!=0"  alt="" :key="Math.random() * 100">
             <img :src="deviceimg"  v-if="deviceimg!=0" :key="Math.random() * 100" alt="">
         </div>
-
         <div class="imgwhate"></div>
         <div class="TokenСardText">
             <h5 v-if="item.ip != ''">IP: <span>{{ item.ip }}</span></h5>
             <h5 v-if="item.type != ''">Протокол: <span>{{ item.type }}</span></h5>
-            <h5 v-if="item.continent != ''">Континент: <span>{{ item.continent }}</span></h5>
             <h5 v-if="item.country != ''">Страна: <span>{{ item.country }}</span></h5>
             <h5 v-if="item.city != ''">Город: <span>{{ item.city }}</span></h5>
             <h5 v-if="item.postal != ''">Почтовый индекс: <span>{{ item.postal }}</span></h5>
@@ -74,9 +72,7 @@ export default {
             }
               return 0;
         },
-        TokenСard() {
-            return this.item.flagimg != '' ? this.item.flagimg : imgsab
-        }
+
     }
 }
 </script>

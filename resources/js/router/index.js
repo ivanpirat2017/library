@@ -26,6 +26,7 @@ import Collections from './routes/Collections.vue'
 import CheckEmail from './routes/Email.vue'
 import Token from './routes/Token.vue'
 import Read from './routes/Read.vue'
+import Adout from './routes/Adout.vue'
 
 
 import Authgenreratetoken from './routes/Authgenreratetoken.vue'
@@ -50,6 +51,11 @@ const routes = [
                 path: "/",
                 name: "Home",
                 component: Home,
+            },
+            {
+                path: "/about",
+                name: "Adout",
+                component: Adout,
             },
             {
                 path: "read/:id",

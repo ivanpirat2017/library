@@ -16,6 +16,8 @@ export const GET_AWARD = url + '/award/';
 export const GET_AWARDS = url + '/getawards';
 export const READ_BOOK = url + '/readbook/';
 
+export const TOKEN_UPDATE= url + '/tokenupdate';
+
 
 export const GET_GENRE_BOOK_ID = url + '/getbookid/';
 export const GET_GENRE_BOOKS = url + '/getgenrebooks/';

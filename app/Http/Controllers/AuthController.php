@@ -26,8 +26,8 @@ class AuthController extends Controller
         }
         if ($user = User::where('email', '=', $request->email)->first()) {
             if ($user->verification) {
-                Mail::send('sendemail', ['userid' => $user->id, 'request' => $request], function ($message) use ($request) {
-                    $message->to($request->email, 'Ivan')->subject('Ваш ключ авторизации');
+                Mail::send('authreg', ['userid' => $user->id, 'request' => $request], function ($message) use ($request, $user) {
+                    $message->to($request->email, $user->last_name . ' ' . $user->first_name)->subject('Ваш ключ авторизации');
                     $message->from('libraru@kursk-library.ru', 'libraru');
                 });
                 return  response()->json(null, 204);
@@ -119,33 +119,44 @@ class AuthController extends Controller
     {
         return  response()->json(['data' => Token::where('user_token_id', '=', Auth::user()->user_token_id)->where('del', '=', false)->get()], 200);
     }
-
+    public function tokenUpdate(Request $request)
+    {
+        Token::where('api_token', '=', $request->api_token)->update([
+            'browser' => $request->browser
+        ]);
+        return '';
+    }
     public function verification(Request $request, $id)
     {
         $user = User::where('verificationkey', '=', $id)->first();
         if ($user) {
-            $user->verification = true;
-            $user->save();
-            $ipdata = getpi($request->ip());
+            if ($user->verification == false) {
+                $user->verification = true;
+                $user->save();
+            }
+            $ipdata = getapidata($request->ip());
             $rand = Str::random(64);
             Token::create([
                 'user_token_id' => $user->id,
                 'api_token' => $rand,
                 'browser' => '',
-                'ip' => $ipdata->ip ?? '',
-                'type' => $ipdata->type ?? '',
+                'ip' => $request->ip(),
+                'type' => 'IPv4',
                 'continent' => $ipdata->continent ?? '',
-                'country' => $ipdata->country ?? '',
-                'city' => $ipdata->city ?? '',
-                'latitude' => $ipdata->latitude ?? '',
-                'longitude' => $ipdata->longitude ?? '',
-                'postal' => $ipdata->postal ?? '',
-                'flagimg' => $ipdata->flag->img ?? '',
+                'country' => $ipdata->location->data->country ?? '',
+                'city' => $ipdata->location->value ?? '',
+                'latitude' =>  '',
+                'longitude' =>   '',
+                'postal' => $ipdata->location->data->postal_code ?? '',
+                'flagimg' => $ipdata->location->data->country_iso_code ?? '',
                 'del' => false,
             ]);
+            $key  = Str::random(64);
+            $user->verificationkey = $key;
+            $user->save();
             return Redirect::to(URL::to('/authgenreratetoken/' . $rand));
         }
-        return  'ошибка';
+        return Redirect::to(URL::to('/'));
     }
 }
 function getpi($ip)
@@ -153,9 +164,26 @@ function getpi($ip)
     $url = 'http://ipwho.is/' . $ip;
 
     $curl = curl_init($url);
+
     curl_setopt_array($curl, [
         CURLOPT_RETURNTRANSFER => TRUE,
     ]);
+    $resoult = curl_exec($curl);
+    return json_decode($resoult);
+}
+function getapidata($ip)
+{
+    $url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/iplocate/address?ip=" . $ip;
+
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+    $headers = array(
+        "Accept: application/json",
+        "Authorization: Token 280f128a7d7f51a2fbd20567c3a9fbb7eeb9bc9c",
+    );
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
     $resoult = curl_exec($curl);
     return json_decode($resoult);
 }

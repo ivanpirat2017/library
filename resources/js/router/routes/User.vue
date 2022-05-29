@@ -39,7 +39,7 @@
                     </h5>
                     <h5>
 
-                        {{ user.sum_watchbooks.uniqueWatch }} книг ункальные
+                        {{ user.sum_watchbooks.uniqueWatch }} книг уникальные
                         <img height="20" src="../../../static/img/book.png" />
                     </h5>
                 </div>

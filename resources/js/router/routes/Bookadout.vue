@@ -190,7 +190,7 @@ export default {
             this.img = this.bookinfo.bookimg
                 ? "/storage/" + this.bookinfo.bookimg
                 : imagebook;
-
+            window.scroll(0, 0);
             this.watchbook = r.watch;
         });
     },
@@ -249,6 +249,7 @@ export default {
         getcomment() {
             getApi(GET_COMMENT_BOOK_ID + this.bookId).then((r) => {
                 this.comments = r.data;
+
             });
         },
         btnclickstar() {
