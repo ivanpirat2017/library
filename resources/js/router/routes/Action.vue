@@ -26,7 +26,7 @@
 <script>
 import { getApi, GET_ACTION_ID } from "../../api-routes";
 import fonaction from "../../../static/img/fonaction.jpg";
-import { Imgauto } from "../../script/imgauto";
+ 
 import Book from "../../components/items/Book.vue";
 import Placeholder from "../../components/items/Placeholder.vue";
 export default {
@@ -58,7 +58,7 @@ export default {
 </script>
 <style lang="scss">
 .cardconteiner {
-  
+
     @media (max-width: 450px) {
         margin: 0;
     }

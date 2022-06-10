@@ -1,8 +1,12 @@
 <template  >
     <div class="container  ">
         <div class="form d-flex flex-column bg-dark p-5 ml-3  mr-3">
-            <a href="https://litlife.club/">сайт для парсера</a>
+
+            <a href="https://bookfor.ru">сайт для парсера</a>
             <div class="mb-2">
+                <button type="button" @click="setComent()" class="btn btn-primary">
+                    Создать комментарии ко всем книгам
+                </button>
                 <div class="mb-2">
                     <img id="canvasid" />
                 </div>
@@ -123,7 +127,7 @@ import {
     SEARCH_BOOK,
     DELETE_BOOK,
 } from "../../../api-routes";
-import { cropImg } from "../../../script/cropImg";
+
 export default {
     data() {
         return {
@@ -151,6 +155,9 @@ export default {
         this.getStatus();
     },
     methods: {
+        setComent() {
+            document.location.href = '/api/setucoment'
+        },
         dellbook(i) {
             fetch(DELETE_BOOK + i, {
                 method: "GET",

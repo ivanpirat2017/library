@@ -454,7 +454,13 @@ export default {
         }
 
         img {
-            width: 100%;
+            height: 100%;
+
+            @media (max-width: 700px) {
+                width: 100%;
+                height: auto;
+            }
+
             border-radius: 10px;
             box-shadow: rgba(0, 0, 0, 0.137) 0 10px 20px;
         }

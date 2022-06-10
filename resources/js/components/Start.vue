@@ -31,7 +31,7 @@
           py-3
           m5-l-r
         ">
-                <p class="col-md-4 mb-0 text-light">© 2021 Library.net</p>
+                <p class="col-md-4 mb-0 text-light">© 2022 kursk-library.ru</p>
                 <router-link to="/" class="
             col-md-4
             d-flex
@@ -59,9 +59,6 @@
                     </li>
                     <li class="nav-item">
                         <router-link to="/about" class="nav-link px-2 text-light">About</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/404" class="nav-link px-2 text-light">NotFound</router-link>
                     </li>
                 </ul>
             </footer>
@@ -97,7 +94,7 @@
 </template>
 
 <script>
-import { menu } from "../script/menu";
+
 export default {
     computed: {
         couterCartBacground() {
@@ -123,9 +120,7 @@ export default {
             window.navigator.vibrate(50);
         }
     },
-    mounted() {
-        menu();
-    },
+
 };
 </script>
 
@@ -338,6 +333,7 @@ header {
     overflow: hidden;
     pointer-events: none;
     z-index: 90;
+
     &::before {
         content: '';
         position: absolute;

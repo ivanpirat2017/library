@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class ParserController extends Controller
 {
@@ -52,11 +54,9 @@ class ParserController extends Controller
     function setucoment()
     {
 
-        $books = DB::table('books')->inRandomOrder()
-            ->limit(5000)->select('id')
-            ->get();
+        $books = DB::table('books')->inRandomOrder()->select('id')->get();
         foreach ($books as $bookid) {
-            $users = DB::table('users')->select('id')->get()->random(5);
+            $users = DB::table('users')->select('id')->get()->random(rand(2, 8));
             foreach ($users as $userid) {
                 DB::table('comments')->insert([
                     'user_comment_id' => $userid->id,
@@ -66,18 +66,33 @@ class ParserController extends Controller
                 ]);
             }
         }
-        return  'ok';
+        return Redirect::to(URL::to('/'));
     }
     function setWath()
     {
 
-        $books = DB::table('books')->inRandomOrder()->limit(5000)->select('id') ->get();
+        $books = DB::table('books')->inRandomOrder()->select('id')->get();
         foreach ($books as $bookid) {
-            $users = DB::table('users')->select('id')->get()->random(20);
+            $users = DB::table('users')->select('id')->get()->random(rand(8, 30));
             foreach ($users as $userid) {
                 DB::table('watchbooks')->insert([
                     'watch_user_id' => $userid->id,
                     'watch_book_id' => $bookid->id,
+                ]);
+            }
+        }
+        return  'ok';
+    }
+    function setLike()
+    {
+
+        $comments = DB::table('comments')->inRandomOrder()->select('id')->get();
+        foreach ($comments as $commentid) {
+            $users = DB::table('users')->select('id')->get()->random(rand(0, 40));
+            foreach ($users as $userid) {
+                DB::table('like_comments')->insert([
+                    'like_user_id' => $userid->id,
+                    'like_comment_id' => $commentid->id,
                 ]);
             }
         }
@@ -133,13 +148,46 @@ function getparsbook($urlrequest, $gnr)
 }
 function randComent()
 {
-    $text1 = ['привет,', 'здравствуйте', 'салют', 'привет,', 'здравствуйте',  'здравствуйте', 'привет,', 'привет'];
-    $text2 = [
-        'в книге все как-то очень быстро произошло', 'ну читать можно', 'не дочитал пока что', 'Как всегда у автора фантазия на высоте, весьма необычный сюжет и слог хорош.', 'очень не стандартная история, мне понравилась.', 'прочитал, доволен', 'в принципе неплохо', 'Понравилось', 'очень понравилось. Космос, динамика, приключения, любовь.', 'как всегда, серия великолепна!', 'С фантазией и юмором у автора всё очень хорошо.',   'книга забавная.', 'Читается легко.', 'ну сюжет не плохой, но очень растянутый, читать можно через страницу', 'В какой-то момент стало скучно.'
-    ];
-    $text3 = ['рекомендую к прочтению',  'советую', "на разный вкус книга.", "есть продолжение?"];
+    $text1 = ['Привет,', 'Здравствуйте,', 'Салют,', 'Добрый день,', 'Доброго времени суток'];
 
-    return  $text1[rand(0, count($text1) - 1)] . ', ' . $text2[rand(0, count($text2) - 1)] . ', ' . $text3[rand(0, count($text3) - 1)];
+
+    $text2 = [
+        'начал читать эту книгу на свой страх и риск',
+        'как же я люблю книги с неожиданными поворотами сюжета и долгим послевкусием!',
+        'для меня это теперь один из любимых авторов',
+        'как всегда у автора фантазия на высоте, весьма необычный сюжет и слог хорош.',
+        "книгу выбрала без долгих раздумий",
+        'очень не стандартная история, мне понравилась,',
+        'прочитал, доволен',
+        'в принципе неплохо',
+        'понравилось',
+        'очень понравилось, динамика, приключения, любовь,',
+        'как всегда, книга великолепна,',
+        'С фантазией и юмором у автора всё очень хорошо,',
+        'книга забавная,',
+        "нетривиальный сюжет,",
+        "отличается большей, на мой взгляд, душевностью, по сравнению с другими книгами автора, но прослеживается тот же задор и шебутность атмосферы,",
+        'приятная книга, и аккуратная любовная история, и много забавных ситуаций,',
+        'читается легко,',
+        'сюжет хороший, немного растянутый, читается легко,',
+        'oна написана интересно и лаконично, ничего лишнего,',
+        'книга вдохновляет,',
+        'здесь представлены действительно реальные ситуации живых людей,',
+        'Легко, понятно, красиво, ярко, привлекательно и можно было добавить много других эпитетов, но и после этих всё предельно ясно,',
+        'понравилось безумно, также зацепили и иллюстрации'
+    ];
+    $text3 = [
+        'рекомендую к прочтению.',
+        'советую.', "книга на разный вкус.",
+        "есть продолжение?",
+        'жду новых книг с нетерпением :)',
+        'обязательно прочитаю все книги этого автора'
+    ];
+
+    return  $text1[rand(0, count($text1) - 1)] . ' ' . $text2[rand(0, count($text2) - 1)] . ' ' . $text3[rand(0, count($text3) - 1)];
+
+
+    // 'В какой-то момент стало скучно.'
 }
 
 function translit($value)

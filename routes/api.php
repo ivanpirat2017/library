@@ -35,10 +35,15 @@ Route::get('/getbooksfilter/{flter}', [BookController::class ,'getbooksFilter'])
 Route::middleware('auth:api')->post('/creategenre', [BookController::class ,'creategenre']);
 Route::middleware('auth:api')->post('/createbook', [BookController::class ,'createbook']);
 Route::middleware('auth:api')->post('/createstatus', [BookController::class ,'createstatus']);
+
 Route::post('/getbookparser', [ParserController::class ,'getBookParser']);
 Route::get('/setuser', [ParserController::class ,'setuser']);
 Route::get('/setucoment', [ParserController::class ,'setucoment']);
 Route::get('/setwath', [ParserController::class ,'setWath']);
+Route::get('/setlike', [ParserController::class ,'setLike']);
+
+
+
 Route::get('/getstatus', [BookController::class ,'getStatus']);
 Route::get('/getbookid/{bookid}', [BookController::class ,'getbookid']);
 Route::get('/getgenrebooks/{genre}', [BookController::class ,'getgenrebooks']);

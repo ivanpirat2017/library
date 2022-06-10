@@ -1,9 +1,9 @@
 <template >
     <div class="Adout m5-l-r">
 
-        <h2>Приветствуем Вас на сайте электронной библиотеки  «Library» .</h2>
+        <h2>Приветствуем Вас на сайте электронной библиотеки «Library»</h2>
         <div class="AdoutTexts">
-            <div class="bg-dark">
+            <div class=" ">
                 <h2>1</h2>
                 <p class="AdoutC1">
                     На сайте представлены книги разных жанров для бесплатного скачивания. Для удобства пользования
@@ -12,7 +12,7 @@
                     разделы, в которых легко найти интересные новинки, бестселлеры и современную прозу.
                 </p>
             </div>
-            <div class="bg-dark">
+            <div class=" ">
                 <h2>2</h2>
                 <p class="AdoutC2">
                     После простой регистрации вам будет доступна уникальная система достижений по просмотрам, лайкам и
@@ -23,7 +23,7 @@
                     и просмотреть карточку другого пользователя, нажав на его аватарку.
                 </p>
             </div>
-            <div class="bg-dark">
+            <div class=" ">
                 <h2>3</h2>
                 <p> Вы можете читать фрагменты книг прямо на сайте, не загружая к себе на компьютер. А все отмеченные
                     книги
@@ -31,7 +31,7 @@
                     отображаться в блоке «Избранное».
                 </p>
             </div>
-            <div class="bg-dark">
+            <div class=" ">
                 <h2>4</h2>
                 <p> Для поиска интересующей литературы рекомендуем пользоваться поисковиком по сайту, расположенным в
                     нижней
@@ -41,7 +41,7 @@
                     книг.
                 </p>
             </div>
-            <div class="bg-dark">
+            <div class=" ">
                 <h2>5</h2>
                 <p>
                     У каждой книги есть рейтинг, а также отзывы, опубликованные читателями библиотеки. Надеемся, Вы
@@ -140,27 +140,32 @@ export default {
 
     &Texts {
         display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
+        flex-direction: column;
+        gap: 25px;
 
         div {
             display: flex;
-            padding: 10px;
-            flex: 1 1 500px;
-            border-radius: 5px;
-            gap: 15px;
+
+            padding: 10px 0 0 0;
+            flex: 1;
+
+
+            align-items: flex-end;
 
 
             h2 {
                 font-size: 2rem;
-                color: white;
+                color: rgb(0, 0, 0);
                 margin: 0;
+
+                padding-right: 10px;
             }
 
             p {
                 font-size: 1.2rem;
                 margin: 0;
-                color: #c9c9c9;
+                color: #000000;
+                border-bottom: #24242441 solid 1px;
             }
         }
 
